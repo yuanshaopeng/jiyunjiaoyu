@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<input type="text"><br>
+		<textarea rows="" cols="">
+			
+		</textarea>
+		<button onclick="add()">提交</button>
+		<ul>
+			<li>
+				<h2>标题</h2>
+				<p>内容</p>
+			</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		var ul = document.querySelector("ul");
+		var ipt = document.querySelector("input");
+		var tar = document.querySelector("textarea");
+		var obj = {
+			arr : [
+				
+			]//用来记录留言内容
+		}
+		function add(){
+			obj.arr.push({
+				title:ipt.value,
+				content:tar.value
+			})
+			obj.arr = obj.arr.slice(0);
+		}
+		
+		function del(index){
+			obj.arr.splice(index,1);
+			obj.arr = obj.arr.slice(0);
+		}
+		
+		Object.defineProperty(obj,"_arr",{
+			value:obj.arr,
+			enumerable:false,
+			writable:true,
+			configurable:true
+		})
+		Object.defineProperty(obj,"arr",{
+			set:function(value){
+				//修改后触发
+				console.log(value,"run");
+				obj._arr = value;
+				var str = "";
+				for(var i = 0 ; i < value.length ; i++){
+					str += `<li>
+						<h2>${value[i].title}</h2>
+						<p>${value[i].content}</p>
+						<p onclick="del(${i})">删除</p>
+					</li>`
+				}
+				ul.innerHTML = str;
+			},
+			get:function(){
+				return obj._arr;
+			}
+		})
+		
+	</script>
+</html>

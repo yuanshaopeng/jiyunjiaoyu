@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 200px;
+				height: 200px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("div").hide(2000).show(2000).slideUp(2000).slideDown(2000);
+		//第一个布尔值   是否停止后续动画；
+		//第二个布尔值   是否将动画跳转到结束状态；
+		setTimeout(function(){
+			$("div").stop(true,true);
+		},1000)
+	</script>
+</html>

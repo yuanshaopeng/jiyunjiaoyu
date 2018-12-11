@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			img{
+				pointer-events: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		let div = document.querySelector("div");
+		//1获取XMLHttpRequest对象
+		var xhr = new XMLHttpRequest();  //xhr.readyState:0;
+		
+		//2打开通道
+		xhr.open("GET","http://169.254.64.214:8080/TouTiao/Query?key=7853d75e8e8841aea6d16237127fc60a&type=top",true);//xhr.readyState:1;
+		// xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+		//3发送请求
+		xhr.send();//xhr.readyState:2;
+		//4监听xhr状态是否完成请求
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){//xhr对象的状态码;
+				if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+					console.log(xhr.responseText);//后台返回的数据
+					div.innerHTML = xhr.responseText;
+					console.log("3")
+				}
+			}
+		}
+		
+		console.log("2")
+	</script>
+</html>

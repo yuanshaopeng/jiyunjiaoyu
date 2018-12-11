@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//repalceWith   replaceAll;
+		let $nli = $("<li/>").text("新的");
+		// a.replaceWith(B)   将a替换为b； （a为被替换项）  （b为替换项）
+		// $("li").eq(1).replaceWith($nli);
+		// a.replaceAll(B)   用a替换为b；  （a为替换项）  （b为被替换项）
+		$nli.replaceAll($("li").eq(1))
+	</script>
+</html>

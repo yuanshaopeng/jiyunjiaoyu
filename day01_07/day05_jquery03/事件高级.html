@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			div{
+				width: 200px;
+				height: 200px;
+				float: left;
+			}
+			td{
+				width: 50px;
+				height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1">
+			<table cellpadding="0" cellspacing="0" border="1">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<div class="box2">
+			<table cellpadding="0" cellspacing="0" border="1">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+// 		$("div").click(function(ev){
+// 			console.log(ev);
+			/*
+			 * ev.screenX screenY  :光标在显示屏的位置；
+			 * ev.clientX clientY  pageX pageY  光标较可视区域左侧顶部位置；
+			 * ev.offsetX  ev.offsetY    光标在定位元素中的位置；
+			 * ev.target  ev.toElement   触碰元素；
+			 * ev.currentTarget  事件绑定元素
+			 * ev.data   绑定事件的额外数据；
+			 * ev.result  上一次相同事件的返回值
+			 * //鼠标的移入移除事件中含有的属性
+			 * ev.relatedTarget   移入事件时 从哪儿来；移出时 到哪儿去；
+			 */
+		// })
+		
+// 		$("div").on("click",function(ev){
+// 			// console.log(ev);
+// 			num ++;
+// 			return 10;
+// 		})
+// 		$("div").on("click",function(ev){
+// 			console.log(ev);
+// 		})
+
+		$("div").on({
+			mouseenter(ev){
+				console.log(ev)
+			},
+			mouseleave(ev){
+				console.log(ev);
+			}
+		})
+		
+	</script>
+</html>

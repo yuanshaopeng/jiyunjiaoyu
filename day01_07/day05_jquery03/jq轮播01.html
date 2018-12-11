@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.wrap{
+				width:259px ;
+				height: 400px;
+				overflow: hidden;
+				margin: 0 auto;
+				position: relative;
+			}
+			.middle{
+				width: 2000px;
+				position: absolute;
+				/* strick; 粘性定位 */
+				font-size: 0;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="middle">
+				<img src="img/1.jpg" alt="">
+				<img src="img/2.jpg" alt="">
+				<img src="img/3.jpg" alt="">
+				<img src="img/4.jpg" alt="">
+				<img src="img/5.jpg" alt="">
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		function run(){
+			$(".middle").delay(1000);//控制动画延迟
+			$(".middle").animate({
+				left:-259
+			},2000,function(){
+				$(".middle").children(":first").appendTo($(".middle"));
+				$(".middle").css("left",0);
+				run();
+			})
+		}
+		run();
+		$(".wrap").hover(function(){
+			//
+			$(".middle").stop(false,true)
+		},function(){
+			run()
+		})
+	</script>
+</html>

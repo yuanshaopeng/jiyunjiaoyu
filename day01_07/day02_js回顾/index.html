@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			/* .wrap div:nth-of-type(1){
+				background: red;
+				height: 100px;
+				width: 100%;
+			} */
+			/* .wrap div:nth-of-type(2){
+				background: yellow;
+				width: 200px;
+				position: absolute;
+				top: 100px;
+				left: 0;
+				bottom: 0;
+			}
+			.wrap div:nth-of-type(3){
+				background: blue;
+				position: absolute;
+				top: 100px;
+				left: 200px;
+				bottom: 0;
+				right: 0;
+			} */
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.wrap{
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+				height: 100%;
+			}
+			.head{
+				background: red;
+				height: 100px;
+				width: 100%;
+			}
+			.middle{
+				flex: 1;
+				width: 100%;
+				background: green;
+				display: flex;
+			}
+			.w200{
+				width: 200px;
+				background: yellow;
+				height: 100%;
+			}
+			.autowh{
+				flex: 1;
+				height: 100%;
+				background: skyblue;
+			}
+			.foot{
+				height: 100px;
+				width: 100%;
+				background: purple;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="wrap">
+			<div class="head"></div>
+			<div class="middle">
+				<div class="w200"></div>
+				<div class="autowh"></div>
+			</div>
+			<div class="foot"></div>
+		</div> -->
+	</body>
+	<script type="text/javascript">
+		var obj = {
+			name:"lee",
+			like:{
+				eat:{
+					first:"鱼",
+					second:"虾"
+				}
+			}
+		}
+		var nobj = {};
+		function fn(obj1,obj2){
+			for(var k in obj1){
+				if(obj1[k] instanceof Object){
+					var obj3 = {};
+					obj2[k] = obj3;
+					fn(obj1[k],obj3);
+				}else{
+					obj2[k] = obj1[k];
+				}
+			}
+		}
+		fn(obj,nobj);
+		
+		for (var i = 0 ; i < 3 ; i++) {
+			setTimeout(function(){
+				console.log(i);
+			},0)
+		}
+		// a: 0,1,2   b 3,3,3    c null 
+		var arr = [];
+		for (var i = 0 ; i < 3 ; i++) {
+			(function(num){
+				arr.push(function(){
+					console.log(num);
+				})
+			})(i)
+		}
+		arr[0]();
+	
+		// a : 0  ; b 3  c  error;
+		
+		
+		var a = 10;
+		a++;
+		// setTimeout(function(){
+			// a=3;
+		// },0)
+		if(a>=11){
+			alert("运行")
+		}
+		
+		var color = "green";
+		// this
+		var obj = {
+			color:"red",
+			fn:function(){
+				console.log(this.color);
+				return function(){
+					console.log(this.color);
+				}
+			}
+		}
+		// this ==> window;
+		// obj.fn().call(obj);
+		// obj.fn.call(this);
+		
+		function Fn(){
+			this.color="pink";
+			// console.log(this.color);
+		}
+		// Fn();
+		// alert(color);
+		// Fn.call(obj);
+		var fn = new Fn();
+		// obj.fn.call(this).apply(fn);
+		
+		
+		fn(5,10) //==> 15;
+		fn(5)(10)// ==>50;
+		function fn(a,b){
+			if(b){
+				return a+b;
+			}else{
+				return function(c){
+					return a*c;
+				}
+			}
+		}
+	</script>
+</html>

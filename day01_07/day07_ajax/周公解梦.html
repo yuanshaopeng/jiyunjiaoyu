@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>周公解梦</title>
+	</head>
+	<body>
+		<input id="xz1" type="text">
+		<input id="xz2" type="text">
+		<button>查询</button>
+		<h3></h3>
+		<p></p>
+	</body>
+	<script type="text/javascript">
+		let btn = document.querySelector("button");
+		let ipt1 = document.querySelector("#xz1");
+		let ipt2 = document.querySelector("#xz2");
+		let h3 = document.querySelector("h3");
+		let p1 = document.querySelector("p");
+		btn.onclick = function(){
+			let value1 = ipt1.value;
+			let value2 = ipt2.value;
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status <300 || xhr.status == 304){
+						let data = JSON.parse(xhr.responseText);
+						console.log(data);
+						h3.innerHTML = data.result.content1;
+						p1.innerHTML = data.result.content2;
+					}
+				}
+			}
+			xhr.open("GET","http://169.254.64.214:8080/XingZuoPeiDui/Lookup?key=3e3e909ade2e473c8d35372a75020cfd&xingzuo1="+value1+"&xingzuo2="+value2,true);
+			xhr.send();
+		}
+		
+//  http://169.254.64.214:8080/XingZuoPeiDui/Lookup
+//?key=3e3e909ade2e473c8d35372a75020cfd&xingzuo1="+value1+"&xingzuo2="+value2
+	</script>
+</html>

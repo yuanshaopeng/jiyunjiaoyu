@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			这是内容
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//jquery链式调用原理   每次方法调用结束都会return this;返回目标元素
+		//单个样式操作
+		// $("#app").css("color","red");
+		//设置多个样式语法
+		$("#app").css({
+			color:"red",
+			background:"green",
+			width:200,
+			height:200,
+			marginLeft:200,
+			border:"10px solid black"
+		})
+		//接收函数
+// 		$("#app").css("color",function(){
+// 			return "red"
+// 		});
+
+		//获取目标元素的多个样式  传递一个数组  返回对象；  终止链式调用
+		console.log($("#app").css(["color","width","height"]))
+
+
+// 		$("#app").click(function(){
+// 			alert(1)
+// 		})
+		
+		
+		
+		
+		
+	</script>
+</html>

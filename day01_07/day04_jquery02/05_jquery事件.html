@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 200px;
+				height: 200px;
+				background: red;
+			}
+			.blue{
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="blue">
+			<!-- <p>内部子元素</p> -->
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//jQuery事件处理可以重复绑定
+		//事件简写
+// 		$("div").click(clickFn1);
+// 		function clickFn1(){
+// 			alert(1)
+// 		}
+// 		//bind 方法
+// 		$("div").bind("click",clickFn2)
+// 		function clickFn2(){
+// 			alert(2)
+// 		}
+// 		//on方法
+// 		$("div").on("click",clickFn3)
+// 		function clickFn3(){
+// 			alert(3)
+// 		}
+		// a 1  b 3 c 1,2,3
+		
+		//移除事件绑定
+		// $("div").unbind("click",clickFn2);
+		// $("div").off("click",clickFn2)
+		/*
+		 * enter&leave  在元素内部移入移出时触发；
+		 * over&out  会监听到元素内部子元素到移入移除；
+		 */
+// 		$("div").on({
+// 			"mouseenter":function(){
+// 				console.log("鼠标移入")
+// 			},
+// 			"mouseleave":function(){
+// 				console.log("鼠标移出")
+// 			},
+// 			"mouseover":function(){
+// 				console.log("over移入")
+// 			},
+// 			"mouseout":function(){
+// 				console.log("out移出")
+// 			}
+// 		})
+		//移入移出
+// 		$("div").hover(function(){
+// 			//移入时触发
+// 			$(this).css("background","blue")
+// 		},function(){
+// 			//移出时触发
+// 			$(this).css("background","red")
+// 		})
+// 		
+// 		$("div").one("click",function(){
+// 			alert("只弹出一次")
+// 		})
+		
+		//toggleClass  添加或移除某个类名；
+		$("div").click(function(){
+			//有则删除  无则添加；
+			$(this).toggleClass("blue");
+		})
+		
+	</script>
+</html>

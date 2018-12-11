@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;
+			padding: 0;}
+			.btnGroup{
+				font-size: 0;
+			}
+			button{
+				width: 100px;
+				height: 35px;
+				font-size: 15px;
+				background: white;
+			}
+			/* button:nth-of-type(1){
+				background: red;
+			} */
+			.box{
+				width: 300px;
+				height: 300px;
+				display: none;
+			}
+			.box:nth-of-type(1){
+				background: red;
+			}
+			.box:nth-of-type(2){
+				background: yellow;
+				/* display: none; */
+			}
+			.box:nth-of-type(3){
+				background: blue;
+				/* display: none; */
+			}
+			.wrap{
+				width: 300px;
+				height: 300px;
+			}
+			.active{
+				background: red;
+			}
+			.show{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="btnGroup">
+			<button class="active">1</button>
+			<button>2</button>
+			<button>3</button>
+		</div>
+		<div class="wrap">
+			<div class="box show"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("button").click(function(){
+			// $(this);  jq dom
+			// this  js原生dom
+// 			$(this).css("background","red")
+// 			.siblings().css("background","white")
+// 			.parent().next().children().eq($(this).index())
+// 			.css("display","block").siblings()
+// 			.css("display","none");
+
+			$(this).attr("class","active").siblings().attr("class","");
+			$(".wrap>div").eq($(this).index()).attr("class","show box").siblings().attr("class","box");
+		})
+	</script>
+</html>

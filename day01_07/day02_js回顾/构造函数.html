@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		function Person(){
+			this.name = "人"
+		}
+		Person.prototype.say =function(){
+			alert(this.name);//this==>Person实例
+		}
+		var p1 = new Person();
+		/*
+		 * new 调用构造函数时
+		 *   1:new Object创建一个对象；
+		 *   2:this指针指向创建的该对象
+		 *   3:运行函数体；
+		 *   4:返回创建的对象；
+		 */
+		var p2 = new Person();
+		
+		console.log("Person原型对象",Person.prototype.__proto__.__proto__);
+		console.log("Person原型对象的proto指针",Person.prototype.__proto__);
+		console.log("Object的原型对象",Object.prototype);
+		console.log(Object.prototype === Person.prototype.__proto__)
+		
+		function Children(age){
+			this.age=age;
+		}
+		Children.prototype = new Person();
+		var c1 = new Children(10);
+		console.log(c1.__proto__ === Children.prototype);
+		
+		
+		//函数都有prototype属性，   该属性值为对象；  原型对象；
+		//原型对象的特点：共享；
+		
+		//每一个对象都具备一个__proto__指针，
+		//该指针指向生成该对象的构造函数的原型；
+		//构造函数的原型又是一个对象，
+		//依次类推
+		//最终指向null   这样的链状结构成为原型链；
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.wrap{
+				overflow: hidden;
+				position: relative;
+				border: 1px solid black;
+			}
+			.middle{
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="middle">
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let wrap = document.querySelector(".wrap");
+		let mid = document.querySelector(".middle");
+
+		let xhr = new XMLHttpRequest();
+		
+		xhr.open("GET","banner.json",true);
+		
+		xhr.send();
+		file:///Users/yuanshaopeng/Desktop/1806a/09_node02/server0.js
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				if(xhr.status >=200&&xhr.status<300 || xhr.status == 304){
+					console.log(xhr.responseText);//json;
+					let data = JSON.parse(xhr.responseText);
+					console.log(data);
+					let img = new Image();
+					img.src = data[0].url;
+					console.log(img);
+					img.onload = function(){
+						document.body.appendChild(img);
+						console.log(img.clientWidth)
+						wrap.style.width = img.clientWidth+"px";
+						wrap.style.height = img.clientHeight+"px";
+						mid.style.width = img.clientWidth*data.length+"px";
+						img.remove();
+					}
+					let imgDom = "";
+					for(let i = 0 ; i < data.length ; i++){
+						 imgDom+= `<img src="${data[i].url}" alt="${data[i].alt}" title="${data[i].title}" />`
+					}
+					document.querySelector(".middle").innerHTML = imgDom;
+					move();
+				}
+			}
+		}
+		function move(){
+			// xxx
+		}
+	</script>
+</html>

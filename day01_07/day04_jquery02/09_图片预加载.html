@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.box{
+				width: 100%;
+				height: 100%;
+				background: pink;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			p{
+				font-size: 100px;
+				color: white;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<p>加载了0%</p>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		 {
+			 // let arr = []
+			// load事件
+			let count = 6;//加载图片总数量
+			let num = 0;//已加载的图片数量
+			let img = $("<img/>").attr("src","image/1.jpg");
+			img.on("load",function(){
+				
+				//当图片加载成功后触发；
+				if(num<count){
+					num++;
+					// setTimeout(function(){
+						img.attr("src","image/"+(num+1)+".jpg");
+						$("p").html("加载了"+Math.floor(num/count*100)+"%")
+					// },1000)
+				}
+				
+				if(num>=count-1){
+					return;
+				}
+			})
+		 }
+	</script>
+</html>

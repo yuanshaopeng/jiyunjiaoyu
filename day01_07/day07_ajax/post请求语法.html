@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<form action="ajax介绍.html" method="post">
+			<input type="text" name="name">
+			<input type="submit" value="提交"/>
+		</form>
+	</body>
+	<script type="text/javascript">
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				if(xhr.status>=200&&xhr.status<300 || xhr.status == 304){
+					console.log(xhr.responseText)
+				} 
+			}
+		}
+		
+		xhr.open("POST","http://169.254.64.214:8080/XingZuoPeiDui/Lookup",true);
+		//设置请求头;
+		// content-type: application/x-www-form-urlencoded
+		xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+		xhr.send("key=3e3e909ade2e473c8d35372a75020cfd&xingzuo1=射手座&xingzuo2=天蝎座")
+	</script>
+</html>

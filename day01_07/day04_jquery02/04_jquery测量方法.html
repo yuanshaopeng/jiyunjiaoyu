@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				position: relative;
+			}
+			.wrap{
+				border: 1px solid black;
+				margin: 10px;
+				position: relative;
+			}
+			.middle{
+				position: absolute;
+				width: 200px;
+				height: 200px;
+				background: red;
+				padding: 50px;
+				margin: 100px;
+				border: 20px dashed greenyellow;
+				left: 50px;
+				top: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="middle">
+				
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//5种
+		console.log($("div").css("width")) ;//string;  设置的宽高200px；
+		console.log($("div").width()); //number   content;
+		console.log($("div").innerWidth()); //content+padding;
+		console.log($("div").outerWidth()); //content+padding+border;
+		console.log($("div").outerWidth(true)); //content+padding+border+margin;
+		
+		
+		//获取距离左侧和顶部的位置
+		// console.log($("div").offset().top) //距离顶部
+		// console.log($("div").offset().left) //距离左侧
+		//获取最近一层使用定位布局的父级元素左侧和顶部距离；
+		// console.log($(".middle").position());
+		
+		
+		//scrollTop(100)  //获取和设置滚动高度；
+	</script>
+</html>

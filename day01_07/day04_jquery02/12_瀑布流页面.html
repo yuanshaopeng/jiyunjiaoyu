@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				width: 300px;
+				float: left;
+			}
+			ul img{
+				width: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		{	
+			// let count = 30;
+			let num = 0;
+			let imgArr = ["image/1.jpg","image/2.jpg","image/3.jpg","image/4.jpg","image/5.jpg","image/6.jpg"]
+			let heightArr = [];//记录高度的数组
+			//初始化高度数组；
+			function getHeight(){
+				heightArr = [];
+				$("ul").each(function(){
+					heightArr.push($(this).height());
+				})
+			}
+			getHeight()
+			//声明一个createLi函数创建li标签
+			function createLi(){
+				let $li = $("<li/>")
+				let $img = $('<img src='+imgArr[rand(6,0)]+' />');
+				$img.appendTo($li);
+				$("<p>"+num+"</p>").appendTo($li);
+				$img.on("load",function(){
+					if(num<30){
+						num++;
+						$li.appendTo($("ul").eq(getMin().index))
+						getHeight()
+						createLi();
+					}else{
+						return;
+					}
+					
+				})
+			}
+			//随机函数   用来随机选择图片   取小不取大；
+			function rand(max,min){
+				return parseInt(Math.random()*(max-min));
+			}
+			//选择高度数组中最小的项及下标
+			function getMin(){
+				let num = heightArr[0];//假设第一项最小；
+				let index = 0;//假设最小项下标为0；
+				for(let i = 0 ; i<heightArr.length ; i++){
+					if(num>heightArr[i]){
+						num = heightArr[i];
+						index = i;
+					}
+				}
+				return {
+					item:num,
+					index
+				}
+			}
+			createLi()
+			let count = 0;
+			$(window).on("scroll",function(){
+				let st = $(document).scrollTop();
+				let dh = $(document).height();
+				let wh = $(window).height();
+
+				
+				if(count>5){
+					
+				}else{
+					if(st+wh >= dh){
+						count++
+						num=0;
+						createLi();
+					}
+				}
+			})
+		}
+	</script>
+</html>

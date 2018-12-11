@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			#wrap{
+				width: 100%;
+				height: 500px;
+				overflow: hidden;
+				border: 1px solid black;
+			}
+			.middle{
+				width: 100%;
+			}
+			.item{
+				height: 100px;
+				font-size: 80px;
+			}
+			.item:nth-of-type(odd){
+				background: red;
+			}
+			.item:nth-of-type(even){
+				background:green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="middle">
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+				<div class="item">5</div>
+				<div class="item">6</div>
+				<div class="item">7</div>
+				<div class="item">8</div>
+				<div class="item">9</div>
+				<div class="item">10</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+// 		$("#wrap").on("scroll",function(){
+// 			console.log("run")
+// 			$(".middle").css({
+// 				transform:"translateY(200px)"
+// 			})
+// 		})
+		
+		/*
+			config:{
+				callback:function();当触底时运行
+				refresh:当dom结构更新时操作
+			}
+		*/
+		$.fn.extend({
+			//无线上拉加载
+			upPullLoad(config){
+				var that = this;
+				that.css({
+					overflow:"hidden",
+					position:"relative"
+				})
+				that.children(":first").css({
+					position:"absolute",
+					top:0
+				})
+				this[0].addEventListener("touchstart",function(ev){
+					console.log(ev)
+					let bol = true;
+					let startPos = ev.touches[0].clientY;
+					let lastPos = that.children(":first").position().top;
+					this.removeEventListener("touchmove",moveFn);
+					this.addEventListener("touchmove",moveFn)
+					function moveFn(e){
+						let movePos = e.touches[0].clientY;
+						//滚动高度 = 移动手值触碰位置-按下屏幕时手指位置 + 按下屏幕时载体的top值；
+						let y = movePos-startPos + lastPos;
+						if(y>=0){
+							y = 0;
+						}
+						//触底判断
+						if(-that.children(":first").position().top+that.height()>=that.children(":first").height()){
+							console.log("触底了")
+							y = -(that.children(":first").height()-that.height());
+							// this.removeEventListener("touchmove",moveFn);
+// 							if(bol){
+								config.callback();
+// 							}
+// 							bol = false;
+						}
+						that.children(":first").css({
+							top:y
+						})
+						
+						
+						
+					}
+					
+				})
+				return this;
+			}
+		})
+		let bol = true;
+		$("#wrap").upPullLoad({
+			callback(){
+				if(bol){
+					bol = false;
+					setTimeout(function(){
+						let str = "";
+						for(var i = 0 ; i < 10 ; i++){
+							str+= '<div class="item">'+(i+1)+'</div>';
+						}
+						$("#wrap").children(":first").append(str);
+						bol = true;
+					},1500)
+				}
+			}
+		});
+	</script>
+</html>

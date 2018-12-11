@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" /><br>
+		<button>提交</button>
+	</body>
+	<script src="socket.io.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let btn = document.querySelector("button");
+		let ipt = document.querySelector("input");
+		let socket=io.connect();
+		socket.on("send",(res)=>{
+			console.log(res);
+		})
+		btn.onclick = function(){
+			socket.emit("chat",ipt.value);
+		}
+	</script>
+</html>

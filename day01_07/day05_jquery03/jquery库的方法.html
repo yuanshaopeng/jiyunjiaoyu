@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<form action="touch.html" method="get">
+			<input type="text" name="user">
+			<input type="text" name="pass">
+			<input type="submit" value="提交"/>
+		</form>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// $("div").next(); //局部方法；
+		
+		// $("div").each();
+		//遍历数组或对象；
+		var arr = [1,2,3,4,5];
+		$.each(arr,function(index,item){
+			console.log(index,item)
+		});
+		
+		let arr2 = $.map(arr,function(item,index){
+			return index
+		})
+		console.log(arr2);
+		
+		//筛选数组； 等同于原生中的filter；
+		let arr3 = $.grep(arr,function(item,index){
+			// console.log(item,index);
+			if(item>3){
+				return false;
+			}else{
+				return true
+			}
+		})
+		console.log(arr3);
+		
+// 		let obj = {
+// 			name:"lee",
+// 			age:18
+// 		}
+// 		//将对象转换为get请求的提交格式；
+// 		let str = $.param(obj)
+// 		console.log(str);
+// 		// name=lee&age=18
+// 		let arr4 = [];
+// 		for(var k in obj ){
+// 			arr4.push(k+"="+obj[k]);
+// 		}
+// 		arr4.join("&");
+
+		
+	</script>
+</html>

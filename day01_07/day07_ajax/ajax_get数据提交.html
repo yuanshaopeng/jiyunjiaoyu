@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		let div = document.querySelector("div");
+		//1获取XMLHttpRequest对象
+		var xhr = new XMLHttpRequest();  //xhr.readyState:0;
+		
+		// httpxxxxx?name=xxx&pass=123;
+		//2打开通道
+		//get请求发送数据夹杂在路径中发送
+		//请求路径:http://localhost:8080/api;
+		//?
+		//请求数据:name=lee&pass=123
+		xhr.open("GET","http://localhost:8080/api?name=lee&pass=123",true);//xhr.readyState:1;
+		
+		//3发送请求
+		xhr.send();//xhr.readyState:2;
+		//4监听xhr状态是否完成请求
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){//xhr对象的状态码;
+				if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+					console.log(xhr.responseText);//后台返回的数据
+				}
+			}
+		}
+		
+	</script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		//普通函数
+		
+// 		function fn(a,b){
+// 			return a+b
+// 		}
+		// fn(10,20);
+		
+		//回调函数
+		//作为参数传递传递到另一个函数中的函数;
+		//回调函数不由我们控制调用;
+		//回调函数是由外层函数进行调用的;
+		
+		//应用场景:回调函数常用于补充外层函数中的业务功能,添加自定义操作;
+		//将外层函数的结果或局部变量暴露到外层，在调用时自定义操作
+		//this指针会发生改变   一般指向window
+// 		setTimeout(function(){
+// 			
+// 		},1000)
+
+		function wrap(a,b,c){
+			if(a+b>30){
+				c(a+b);
+			}
+		}
+		
+		
+		
+		
+		wrap(10,21,function(result){
+			alert(result);
+		})
+		
+	</script>
+</html>

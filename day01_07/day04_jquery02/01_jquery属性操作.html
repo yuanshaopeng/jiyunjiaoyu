@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 200px;
+				height: 200px;
+			}
+			.div1{
+				background: red;
+			}
+			#div2{
+				background: yellow;
+			}
+			[diy]{
+				background: purple;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div class="chooseGroup">
+			<input type="checkbox" id="isAll">全选/全不选
+			<button>反选</button>
+			<input type="checkbox">
+			<input type="checkbox">
+			<input type="checkbox">
+			<input type="checkbox">
+			<input type="checkbox">
+			<input type="checkbox">
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// attr()//方法
+		// 属性的设置
+// 		$("div").eq(0).attr({
+// 			"class":"div1",
+// 			"id":"div2",
+// 			"diy":"diy"
+// 		});
+// 		$("div").eq(1).attr("id","div2");
+// 		$("div").eq(2).attr("diy","diy");
+		//获取属性
+		// console.log($("div:first").attr("class"))
+		
+		$("#isAll").click(function(){
+			 $(this).siblings().prop("checked",$(this).prop("checked"));
+		})
+		$("button").click(function(){
+			// this==>button
+// 			for(var i = 0 ; i < $(this).nextAll().length ; i++){
+// 				$(this).nextAll().eq(i).prop("checked",!$(this).nextAll().eq(i).prop("checked"))
+// 			}
+			$(this).nextAll().each(function(index,item){
+				// this==>每次遍历得到的元素
+				$(this).prop("checked",!$(this).prop("checked"))
+			})
+		})
+		//prop()属性操作方法  写法等同于attr；
+// 		$("div").eq(0).prop({
+// 					"class":"div1",
+// 					"id":"div2",
+// 					"diy":"diy"
+// 		});
+// 		$("div").eq(1).prop("id","div2");
+// 		$("div").eq(2).prop("diy","diy");
+		
+		/*
+		 * prop与attr区别
+		 * prop只能操作元素自带属性不能自定义属性  attr可以
+		 * 应用在选择框时   使用prop  
+		 */
+		
+		
+	</script>
+</html>

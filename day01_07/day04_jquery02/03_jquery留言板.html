@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<input type="text">
+		<textarea rows="" cols="">
+			
+		</textarea>
+		<button>提交</button>
+		<ul>
+			<li><h2></h2><p></p></li>
+		</ul>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var arr = [];
+		$("button").click(function(){
+			$("<li><h2>"+$("input").val()+"</h2><p>"+$("textarea").val()+"</p><p class='del'>删除</p></li>").appendTo("ul");
+			//禁止在多次调用的函数中绑定元素的事件
+		})
+		$("ul").on("click",".del",function(ev){
+			// alert("run")
+			console.log(this);//this==>指向委托元素；
+		})
+// 		$("ul").on("click",".p",function(ev){
+// 			// alert("run")
+// 			console.log(this);//this==>指向委托元素；
+// 		})
+// 		$("ul").on("click",".xx",function(ev){
+// 			// alert("run")
+// 			console.log(this);//this==>指向委托元素；
+// 		})
+// 		function del(el){
+// 			$(el).parents("li").remove()
+// 		}
+	</script>
+</html>

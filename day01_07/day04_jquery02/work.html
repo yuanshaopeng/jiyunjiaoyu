@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			a{
+				display: inline-block;
+				width: 100px;
+				text-align: center; 
+				font-size: 16px;
+			}
+			.wrap{
+				position: relative;
+				font-size: 0;
+			}
+			.border{
+				width: 100px;
+				height: 2px;
+				background: red;
+				position: absolute;
+				left: 0;
+				transition: all 0.2s;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<a href="#">菜单1</a>
+			<a href="#">菜单2</a>
+			<a href="#">菜单3</a>
+			<a href="#">菜单4</a>
+			<div class="border"></div>
+		</div>
+		<div class="wrap">
+			<a href="#">菜单1</a>
+			<a href="#">菜单2</a>
+			<a href="#">菜单3</a>
+			<a href="#">菜单4</a>
+			<div class="border"></div>
+		</div>
+		<div class="wrap">
+			<a href="#">菜单1</a>
+			<a href="#">菜单2</a>
+			<a href="#">菜单3</a>
+			<a href="#">菜单4</a>
+			<div class="border"></div>
+		</div>
+		<div class="wrap">
+			<a href="#">菜单1</a>
+			<a href="#">菜单2</a>
+			<a href="#">菜单3</a>
+			<a href="#">菜单4</a>
+			<div class="border"></div>
+		</div>
+		<div class="wrap">
+			<a href="#">菜单1</a>
+			<a href="#">菜单2</a>
+			<a href="#">菜单3</a>
+			<a href="#">菜单4</a>
+			<div class="border"></div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("a").mouseenter(function(){
+			$(this).parent().children(":last").css("left",$(this).index()*100);
+		})
+	</script>
+</html>

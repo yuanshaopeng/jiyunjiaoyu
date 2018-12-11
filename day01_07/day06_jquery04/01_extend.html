@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// $.extend();
+		// $.fn.extend()
+		
+		
+		{
+			// $.extend(currentObj,obj);   用第二个对象补充第一个对象；
+			// $.extend(bol,obj1,obj2);  bol true时  深度扩展    false浅扩展
+			let obj1 = {
+				name:"lee",
+				age:"18",
+				eat:{
+					meet:"羊肉",
+					vergerable:"白菜"
+				}
+			}
+			let obj2 = {
+				"from":"China"
+			}
+			$.extend(obj1,obj2);
+			console.log(obj1,obj2);
+			
+			let obj3 = {};
+			$.extend(true,obj3,obj1);
+			
+			obj3.name = "wang";
+			obj3.eat.meet = "牛肉";
+			console.log(obj3);
+			console.log(obj1);
+		}
+	</script>
+</html>

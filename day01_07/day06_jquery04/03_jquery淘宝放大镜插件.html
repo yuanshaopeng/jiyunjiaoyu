@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			.wrap{
+				border: 1px solid black;
+				width: 200px;
+				height: 200px;
+				margin: 0 auto;
+				background: url(min.jpg);
+				background-size: 100% 100%;
+			}
+			.wrap img{
+				width: 100%;
+				height: 100%;
+			}
+			.k{
+				background: #FFFF00;
+				opacity: 0.5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			
+		</div>
+		
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/*
+		 * maxGlasses  API
+		 *  config:{
+				minW,
+				minH,
+				bl:放大比例,
+				url:"放大的图片路径"，
+				kuaiClass:"",
+				directive:"方向"
+			}
+		 */
+		$.fn.extend({
+			maxGlasses(obj){
+				//创建默认配置
+				let defaultObj = {
+					bl:2.5,
+					kuaiClass:"default",
+					directive:"right"
+				}
+				//整合对象；
+				$.extend(true,defaultObj,obj);
+				// 给目标元素设置定位
+				this.css({
+					position:"relative"
+				})
+				//绑定鼠标移入事件
+				this.on("mouseenter",function(){
+					// this=>js原生元素；
+					$("<div/>").prop("class",defaultObj.kuaiClass).css({
+						width:defaultObj.minW/defaultObj.bl,
+						height:defaultObj.minH/defaultObj.bl,
+						position:"absolute",
+						top:0,
+						left:0
+					}).appendTo($(this));
+					
+					switch (defaultObj.directive){
+						case "right":
+							$("<div/>").css({
+								width:defaultObj.minW,
+								height:defaultObj.minH,
+								position:"absolute",
+								left:$(this).outerWidth(),
+								top:0,
+								overflow:"hidden"
+							}).appendTo($(this))
+							.append($("<img class='maxImg' src="+defaultObj.url+" />").css({
+								width:defaultObj.minW*defaultObj.bl,
+								height:defaultObj.minH*defaultObj.bl,
+								position:"absolute",
+								left:0,
+								top:0
+							}))
+							break;
+						case "left":
+							$("<div/>").css({
+								width:defaultObj.minW,
+								height:defaultObj.minH,
+								position:"absolute",
+								left:-$(this).outerWidth(),
+								top:0,
+								overflow:"hidden"
+							}).appendTo($(this))
+							.append($("<img class='maxImg' src="+defaultObj.url+" />").css({
+								width:defaultObj.minW*defaultObj.bl,
+								height:defaultObj.minH*defaultObj.bl,
+								position:"absolute",
+								left:0,
+								top:0
+							}))
+							break;
+						case "top":
+							$("<div/>").css({
+								width:defaultObj.minW,
+								height:defaultObj.minH,
+								position:"absolute",
+								top:-$(this).outerHeight(),
+								left:0,
+								overflow:"hidden"
+							}).appendTo($(this))
+							.append($("<img class='maxImg' src="+defaultObj.url+" />").css({
+								width:defaultObj.minW*defaultObj.bl,
+								height:defaultObj.minH*defaultObj.bl,
+								position:"absolute",
+								left:0,
+								top:0
+							}))
+							break;
+						case "bottom":
+							$("<div/>").css({
+								width:defaultObj.minW,
+								height:defaultObj.minH,
+								position:"absolute",
+								top:$(this).outerHeight(),
+								left:0,
+								overflow:"hidden"
+							}).appendTo($(this))
+							.append($("<img class='maxImg' src="+defaultObj.url+" />").css({
+								width:defaultObj.minW*defaultObj.bl,
+								height:defaultObj.minH*defaultObj.bl,
+								position:"absolute",
+								left:0,
+								top:0
+							}))
+							break;
+						default:
+							break;
+					}
+				})
+				this.on("mouseleave",function(){
+					// this=>js原生元素；
+					$(this).empty()
+					
+				})
+				this.on("mousemove",function(ev){
+					let l = ev.clientX-$(this).children("."+defaultObj.kuaiClass).width()/2-$(this).offset().left;
+					let t = ev.clientY-$(this).children("."+defaultObj.kuaiClass).height()/2-$(this).offset().top;
+					if(l<=0){
+						l = 0;
+					}else if(l>=$(this).width()-$(this).children("."+defaultObj.kuaiClass).width()){
+						l = $(this).width()-$(this).children("."+defaultObj.kuaiClass).width()
+					}
+					if(t<=0){
+						t = 0
+					}else if(t>=$(this).height()-$(this).children("."+defaultObj.kuaiClass).height()){
+						t = $(this).height()-$(this).children("."+defaultObj.kuaiClass).height()
+					}
+					$(this).children("."+defaultObj.kuaiClass).css({
+						left:l,
+						top:t,
+					})
+					$(this).children(":last").children(".maxImg").css({
+						left:-l*defaultObj.bl,
+						top:-t*defaultObj.bl
+					})
+				})
+			}
+		})
+		$("div").maxGlasses({
+			minW:$("div").width(),
+			minH:$("div").height(),
+			kuaiClass:"k",
+			url:"max.jpg",
+			directive:"bottom"
+		})
+	</script>
+</html>

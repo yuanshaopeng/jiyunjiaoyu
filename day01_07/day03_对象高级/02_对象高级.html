@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<p class="p1"></p>
+		<p class="p2"></p>
+	</body>
+	<script type="text/javascript">
+		var age = "name";
+		
+// 		obj.name;
+// 		obj["name"]
+// 		obj.age
+		// obj[age]
+		
+		//删除
+// 		delete obj.name;
+// 		console.log(obj)
+
+// 		for (var k in Object.prototype) {
+// 			console.log("go")
+// 			console.log("键名："+k,"键值："+Object.prototype[k])
+// 		}
+// 		console.log("run")
+// 		obj.name = "sss";
+		var obj = {
+			name:"lee",
+			age:18,
+		}
+		for(var k in obj){
+			Object.defineProperty(obj,"_"+k,{
+				value:obj[k],
+				enumerable:false,
+				writable:true,
+				configurable:true,
+			})
+		}
+		// console.log(obj)
+		//设定对象的高级属性
+		// Object.defineProperty(目标对象,对象中的属性,config配置对象)；
+		//set&get 方法不能和 value&&writable同时存在；
+// 		Object.defineProperty(obj,"name",{
+// 			value:"wang",
+// 			writable:false,//是否允许修改
+// 			enumerable:false,//是否可以通过遍历查询
+// 			configurable:false,//是否允许被删除
+// 			set:function(){},
+// 			get:function(){}
+// 		})
+
+
+		Object.defineProperty(obj,"name",{
+			get:function(){
+				console.log("获取了obj的name值")
+				return obj._name;
+			},
+			set:function(value){
+				obj._name=value;
+				console.log("设置了obj的name值")
+				console.log(value);
+				p1.innerHTML = obj.name;
+			}
+		})
+		
+		console.log(obj.name)
+		// obj.name = "sss"
+// 		obj.name = "zhang";
+// 		delete obj.name;
+// 		console.log(obj.name)
+// 		for(var k in obj){
+// 			console.log("键名："+k,"键值："+obj[k])
+// 		}
+		var p1 = document.querySelector(".p1");
+		var p2 = document.querySelector(".p2");
+		p1.innerHTML = obj.name;
+		p2.innerHTML = obj.age;
+	</script>
+</html>

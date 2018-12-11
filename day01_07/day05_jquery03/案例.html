@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.wrap{
+				width: 100%;
+				height: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			.middle{
+				height: 500%;
+				width: 100%;
+				position: absolute;
+				transition: all 0.2s;
+			}
+			.box{
+				height: 20%;
+				width: 100%;
+			}
+			.box:nth-of-type(1){
+				background: red;
+			}
+			.box:nth-of-type(2){
+				background: #ADFF2F;
+			}
+			.box:nth-of-type(3){
+				background: #FFFF00;
+			}
+			.box:nth-of-type(4){
+				background: #FFC0CB;
+			}
+			.box:nth-of-type(5){
+				background: #87CEEB;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="middle">
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="touch.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var page = 0;
+		touch.on(".wrap","swipeup",function(){
+			page++;
+			if(page >= 4){
+				page = 4;
+			}
+			$(".middle").css("top",-page*$(document).height());
+		})
+	</script>
+</html>

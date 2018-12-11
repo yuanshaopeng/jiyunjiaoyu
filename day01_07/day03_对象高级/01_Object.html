@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<input type="text">
+		<div id="app">
+			<div>{{name}}</div>
+			<div>{{age}}</div>
+			<div>{{arr}}</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var ipt = document.querySelector("input");
+		ipt.oninput =function(){
+			my.data.name = this.value;
+		}
+		function MyDom(config){
+			this.el = document.querySelector(config.el);//获取目标元素
+			this.data = config.data;//在目标元素内部绑定的数据
+			this.mapData();
+			this.domStr = this.el.innerHTML;//目标元素的都没结构
+			console.log(this.domStr)
+		}
+		MyDom.prototype = {
+			constructor: MyDom,
+			mapData(){
+				var that = this;
+				for (var k in this.data) {
+					this.data["_"+k] = this.data[k];
+				}
+				let reg = /^_/;
+				for (let k in this.data) {
+					// k = k.substr(1);
+					if(!reg.test(k)){
+						Object.defineProperty(this.data,k,{
+							get(){
+								return that.data["_"+k];
+							},
+							set(val){
+								that.data["_"+k] = val;
+								that.init();
+							}
+						})
+					}
+				}
+			},
+			init(){
+				let domStr = this.domStr;
+				let reg1 = /\{\{\w+\}\}/gi;
+				let reg2 = /\{\{\w+\}\}/;
+				let arr = domStr.match(reg1);
+				for(var i = 0 ; i < arr.length ; i++){
+					let arr2 = arr[i].split("");
+					arr2.splice(0,2);
+					arr2.splice(arr2.length-2);
+					let keys = arr2.join("");
+					console.log(keys)
+					domStr = domStr.replace(reg2,this.data["_"+keys]);
+				}
+				console.log(domStr);
+				this.el.innerHTML = domStr;
+			}
+		}
+		let my = new MyDom({
+			el:"#app",
+			data:{
+				name:"lee",
+				age:"18",
+				arr:[1,2,3]
+			}
+		})
+		my.init()
+	</script>
+</html>

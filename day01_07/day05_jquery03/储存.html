@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		/*
+		对象
+		localStorage  永久化储存  储存量大   约5M;
+			有自己的api方法进行数据读取写入删除等操作；
+			localStorage.键名 = 值；
+			localStorage[键名]= 值；
+			localStorage.setItem("键名"，“键值”)
+			localStorage.getItem("键名")
+			localStorage.removeItem("键名")
+			
+			
+			
+		sessionStorage   会话存储  
+			
+		字符串
+		cookie
+		let date = new Date();
+		date.setDate(date.getDate()+7);
+		document.cookie = "键名=键值;expires="+date;
+		
+		*/
+	   let date = new Date();
+	   date.setDate(date.getDate()+7);
+	   document.cookie = "name=lee;expires="+date;
+	   document.cookie = "age=18;expires="+date;
+	   
+	   function getCookie(key){
+		   var cookie = document.cookie;
+		   let arr1 = cookie.split("; ");
+		   console.log(arr1)
+		   for(var i = 0 ; i < arr1.length ; i++){
+			   let arr2 = arr1[i].split("=");
+			   if(arr2[0] == key){
+				   return arr2[1];
+			   }
+		   }
+	   }
+	   // console.log(getCookie("ss"))
+	   
+	   function setCookie(key,value,exp){
+		   let date = new Date();
+		   date.setDate(date.getDate()+exp);
+		   document.cookie = key+ "="+value+";expires="+date;
+	   }
+	</script>
+</html>

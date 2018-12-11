@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<!-- <div><p>小兰迟到了</p></div> -->
+		<input type="text">
+		<!-- <ul>
+			<li>我是元老级元素li</li>
+		</ul> -->
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//text()  html()  传值是设置  不传值是获取；
+		// console.log($("div").text("小蓝坐好了"));  //innerText;
+		// console.log($("div").html("小蓝还迟到不了"));//innerHTML
+		
+		console.log($("input").val())
+		//创建元素；
+		// 1、$("div").html("<h1>标签</h1>")
+		// 2、$()
+			// console.log($("<div/>"))
+			
+		//插入某元素内部 
+		//从头插入   prepend;  
+		//A.prepend(B);   在A元素内部的开始部分插入B元素  
+		// let $nli = $("<li/>").text("我是新来的要坐第一排");//创建li元素
+		// $("ul").prepend($nli);   
+		//A.prependTo(B);  将A元素插入到B元素内部的开始部分；
+		// $("<li/>").text("我是新来的要坐第一排").prependTo("ul");
+		//从后插入   append;
+		// $("<li/>").text("我是转来的要坐最后一排").appendTo("ul");
+		
+		//插入到某元素前后；
+		// before  A.before(B);   在a前插入b；
+		// $("li:last").before($("<li/>").text("要坐倒数第二排"));
+		// insertBefore   A.insertBefore(B);   将a插入到b之前；
+		// $("<li/>").text("要坐正数第二排").insertBefore($("li").eq(1));
+		// after
+		// $("li:last").after($("<li/>").text("老子要坐最后"))
+		// $("<li/>").text("我就要坐第二").insertAfter($("li:first"))
+		
+		//删除元素
+		// $("li").remove();//删除元素
+		// $("ul").empty();//清空内部子元素
+		// detach();	
+			
+		
+	</script>
+</html>

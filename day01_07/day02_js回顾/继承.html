@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		function Person(xing){
+			// this=>window;
+			this.xing = xing;
+		}
+		Person.prototype.say = function(){
+			alert(this.xing);
+		}
+		//原型继承
+		/*
+		* 优点：在继承时，不仅可以继承父类实例中的自身的属性和方法，也可以继承父类构造函数的原型属性和方法；
+		* 缺点：不灵活，在调用子类构造函数时不能向父类传递参数；
+		*/
+// 		function Children(name){
+// 			this.name = name;
+// 		}
+// 		Children.prototype = new Person("李");
+// 		var c1 = new Children("小龙");
+// 		
+// 		Children.prototype = new Person("刘");
+// 		var c2 = new Children("国良");
+		
+		
+		//冒充继承
+		/*
+		 * 原理：利用函数中的call&apply方法可以改变函数this指针，形成冒充调用；
+		 */
+// 		function Children(name,xing){
+// 			// this=>children实例；
+// 			this.name = name;
+// 			Person.call(this,xing);
+// 		}
+// 		var children = new Children("小龙","lee");
+		/*
+		 * 优势：调用子类构造函数时可以向父类传递参数；较为灵活；
+		 * 缺点：只能继承父类实例自身的属性和方法，无法继承父类构造函数的原型属性和方法；
+		 */
+		
+		//组合式继承  原型继承+冒充继承；
+// 		function Children(name,xing){
+// 			this.name = name;
+// 			Person.call(this,xing);
+// 		}
+// 		Children.prototype = new Person();
+// 		var children = new Children("党委","刘");
+		/*
+		 * 缺点：会生成一个无意义的父类实例对象； 不环保；
+		 */
+		
+		//空对象媒介法继承；
+// 		function NullFn(){};
+// 		NullFn.prototype = Person.prototype;
+// 		function Children(name,xing){
+// 			this.name = name;
+// 			Person.call(this,xing);
+// 		}
+// 		Children.prototype = new NullFn();
+	</script>
+</html>

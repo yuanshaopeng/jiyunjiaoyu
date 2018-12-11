@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			div{
+				padding: 100px;
+			}
+			div{
+				background: red;
+			}
+			div div{
+				background: yellow;
+			}
+			div div div {
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div>
+				<div></div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("div").click(function(ev){
+			console.log(ev);
+			// ev.stopPropagation();//组织冒泡
+			// ev.preventDefault();//组织浏览器默认事件
+			// alert($(this).width())
+			// return false;//都阻止
+		})
+	</script>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		// var arr = [1,2,3,4];
+		// var arr2 = arr;
+		// var arr2 = arr.slice(0);
+		
+		var arr = [1,[2,3,[4,5]]];
+		var arr2 = [];
+		// console.log(arr);
+		// var arr2 = arr.slice(0);
+// 		for(var i = 0 ; i < arr.length ; i++){
+// 			if(arr[i] 不是数组){
+// 				把arr【i】推入arr2；
+// 			}else{
+// 				是数组再次遍历
+// 			}
+// 		}
+		
+		//数组的深度拷贝
+		function fn(arr,narr){
+			for(var i = 0 ; i < arr.length ; i++){
+				if(arr[i] instanceof Array){
+					var arr1 = [];
+					narr.push(arr1);
+					//arr[i]  ==>内层数组；
+					// arr1 ==> 空数组
+					fn(arr[i],arr1);
+				}else{
+					narr.push(arr[i]);
+				}
+			}
+		}
+		fn(arr,arr2);
+		
+		// JSON.parse(JSON.stringify(arr))
+		
+// 		obj = {
+// 			name:"lee",
+// 			like:{
+// 				first:"吃",
+// 				second:"喝"
+// 			}
+// 		}
+		
+// 		unshift(); push();
+// 		shift()  pop();
+		
+		// splice();  slice();
+// 		var arr = [1,2,6,4,3,5];
+// 		arr.sort(function(a,b){
+// 			return 0.5-Math.random();
+// 		});
+
+		// reverse()
+		var arr = [1,2,3,4,5,2,3,4,2];
+		var index = arr.indexOf(2);
+		var indexArr=[];
+		while(index>-1){
+			indexArr.push(index);
+			index = arr.indexOf(2,index+1)
+		}
+		var data1 = new Date().getTime();
+		var str = '';
+		for(var i = 0 ; i < 1000; i ++){
+			var div = document.createElement("div");
+// 			div.innerHTML = i+1;
+// 			document.body.appendChild(div);
+			// str+="<div>"+(i+1)+"</div>"
+			str += `<div>${i+1}</div>`
+			//${js语句}
+		}
+		document.body.innerHTML = str;
+		var data2 = new Date().getTime();
+		console.log(data2-data1);
+		
+		//es6+;
+		filter();
+		map();
+		find();
+		findIndex();
+		forEach();
+		
+		
+		
+		
+	</script>
+</html>

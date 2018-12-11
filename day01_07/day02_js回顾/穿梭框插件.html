@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#box{
+				display: flex;
+				width: 500px;
+				justify-content: space-around;
+			}
+			#box1{
+				display: flex;
+				width: 500px;
+				justify-content: space-around;
+			}
+			.middle{
+				width: 100px;
+				text-align: center;
+			}
+			button{
+				width: 80px;
+				height: 35px;
+			}
+			.left{
+				border: 1px solid black;
+				padding: 20px;
+			}
+			.right{
+				border: 1px solid black;
+				padding: 20px;
+			}
+			.active{
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+		<div id="box1"></div>
+	</body>
+	<script src="sessionStorage.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		(function(){
+			
+			var msg = sessionStorage.msg;
+			msg = JSON.parse(msg);	
+			//创建穿梭框构造函数
+			function Csk(ele,msg){
+				//ele属性对应穿梭框生成的元素
+				this.ele = ele;
+				//msg穿梭框中现实的内容
+				this.msg = msg;
+				//右侧框中的选中项
+				this.chooseRight = null;
+				//左侧框中的选中项；
+				this.chooseLeft = null;
+			}
+			
+			Csk.prototype = {
+				constructor:Csk,
+				//init 初始化穿梭框方法；
+				init:function(){
+					var leftArr = this.msg.left.items;
+					var rightArr = this.msg.right.items;
+					var leftLi = ""
+					for (var i = 0 ; i < leftArr.length ; i++) {
+						leftLi+= `<li index="${i}">${leftArr[i].name}</li>`
+					}
+					var rightLi = ""
+					for (var i = 0 ; i < rightArr.length ; i++) {
+						rightLi+= `<li index="${i}">${rightArr[i].name}</li>`
+					}
+					var domStr = `
+						<div class="left">
+							<ul>
+							${leftLi}
+							</ul>
+						</div>
+						<div class="middle">
+							<button class="leftBtn">左</button>
+							<button class="rightBtn">右</button>
+							<button class="delBtn">删除</button>
+						</div>
+						<div class="right">
+							<ul>
+								${rightLi}
+							</ul>
+						</div>
+					`;
+					this.ele.innerHTML = domStr;
+					//向外层元素绑定点击事件，进行事件委托
+					var that = this;//记录this指针
+					this.ele.onclick = function(ev){
+						//this==>ele;
+						if(ev.target.tagName.toLowerCase() == "li"){
+							for(var i = 0 ; i < ev.target.parentNode.children.length ; i++){
+								ev.target.parentNode.children[i].className = "";
+							}
+							ev.target.className = "active";
+							if(ev.target.parentNode.parentNode.className=="left"){
+								that.chooseLeft = ev.target;
+							}else{
+								that.chooseRight = ev.target;
+							}
+						}else if(ev.target.className == "leftBtn"){
+							if(that.chooseRight){
+								that.moveLeft();
+							}else{
+								return;
+							}
+						}else if(ev.target.className == "rightBtn"){
+							if(that.chooseLeft){
+								that.moveRight();
+							}else{
+								return;
+							}
+							
+						}else if(ev.target.className == "delBtn"){
+							that.del();
+						}
+					}
+				},
+				moveLeft:function(){
+					var index = this.chooseRight.getAttribute("index");
+					this.msg.left.items.push(this.msg.right.items.splice(index,1)[0]);
+					this.msg.left.items.sort(function(a,b){
+						return a.id-b.id;
+					})
+					sessionStorage.msg = JSON.stringify(this.msg);
+					this.init();
+					this.chooseRight = null;
+				},
+				moveRight:function(){
+					var index = this.chooseLeft.getAttribute("index");
+					this.msg.right.items.push(this.msg.left.items.splice(index,1)[0]);
+					this.msg.right.items.sort(function(a,b){
+						return a.id-b.id;
+					})
+					sessionStorage.msg = JSON.stringify(this.msg);
+					this.init();
+					this.chooseLeft = null;
+				},
+				del:function(){
+					if(this.chooseLeft && this.chooseRight){
+						var index1 = this.chooseLeft.getAttribute("index");
+						this.msg.left.items.splice(index1,1);
+						var index2 = this.chooseRight.getAttribute("index");
+						this.msg.right.items.splice(index2,1);
+					}else if(this.chooseLeft){
+						var index1 = this.chooseLeft.getAttribute("index");
+						this.msg.left.items.splice(index1,1);
+					} else if(this.chooseRight){
+						var index2 = this.chooseRight.getAttribute("index");
+						this.msg.right.items.splice(index2,1);
+					}else{
+						alert("请选择操作元素")
+					}
+					sessionStorage.msg = JSON.stringify(this.msg);
+					this.init();
+					
+				}
+			}
+			
+			var csk1 = new Csk(document.querySelector("#box"),msg);
+			csk1.init()
+			var csk2 = new Csk(document.querySelector("#box1"),msg);
+			csk2.init()
+			
+		})()
+	</script>
+</html>

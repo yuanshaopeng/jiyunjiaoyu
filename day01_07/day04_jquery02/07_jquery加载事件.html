@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			console.log("原生加载1")
+		}
+		window.onload = function(){
+			console.log("原生加载2")
+		}
+		window.onload = function(){
+			console.log("原生加载3")
+		}
+		
+		$(document).ready(function(){
+			console.log("jquery加载1")
+		})
+		$(document).ready(function(){
+			console.log("jquery加载1")
+		})
+		$(document).ready(function(){
+			console.log("jquery加载1")
+		})
+		/*
+		 * onload  加载页面所有资源
+		 * ready  仅监听dom结构加载
+		 */
+	</script>
+</html>

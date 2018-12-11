@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			#app{
+				position: relative;
+			}
+			ul{
+				position: relative;
+			}
+			/* .box1{
+				display: none;
+			} */
+			/* .box2{
+				visibility: hidden;
+			}
+			.box3{
+				opacity: 0;
+			} */
+		</style>
+	</head>
+	html   body  #app  .box1   ul   li1;
+	<body>
+		<div id="app">
+			<div class="box1">
+				<ul>
+					<li class="li1">
+						哈哈
+						&lt;span&gt;
+						
+					</li>
+					<li>今天周一</li>
+					<li>今天周二</li>
+					<li>今天周三，周末不远了</li>
+				</ul>
+			</div>
+			<div class="box2"></div>
+			<div class="box3"></div>
+			<div class="box">1</div>
+			<div class="box">2</div>
+			<div class="box">3</div>
+			<div class="box">4</div>
+			<div class="box5">5</div>
+			<div class="box">6</div>
+			<div class="box">7</div>
+			<div class="box">8</div>
+			<div class="box">9</div>
+			<div class="box">10</div>
+			<img src="img/1.jpg" alt="这是美女">
+			<img src="img/2.jpg" alt="这是帅哥">
+		</div>
+		<div>
+			<table>
+				<tr>
+					<td>他</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//jquery元素与原生js元素不互通；
+		{
+			//基本选择器  $(xxxx);
+			//01_id选择器  获取的是唯一元素
+			console.log($("#app"))
+			//02_class选择器  获取的是集合元素
+			console.log($(".box"));
+			//03_标签名选择器  获取的是集合元素
+			console.log($("li"));
+			//04_通配符选择器  （禁用）；
+			console.log($("*"));
+			// $("#app").appendChild("<p>哈哈哈</p>")
+			
+			//层级选择器
+			//01_后代选择器
+			console.log($("#app ul"));
+			//02_子元素选择器
+			console.log($("#app>div"));
+			//03_群主选择器
+			console.log($("#app,.box,ul,li"));
+			//04_兄弟选择器
+			console.log($(".box1+div"));
+			//05_兄弟群主选择器
+			console.log($(".box1~div"));
+			
+			//伪类选择器
+			//:first   :last  选择集合中第一个或最后一个元素
+			console.log($("#app>div:last"))
+			//:nth-child;  索引从1开始
+			console.log($("#app>div:nth-child(even)"))
+			//:even  :odd  索引从0开始
+			console.log($("#app>div:even"))
+			//:eq()  索引从0开始
+			console.log($("#app>div:eq(1)"))
+			//:lt小于  :gt大于 ;索引从0开始
+			console.log($("#app>div:lt(10)"))
+			//:empty  选择没有子元素或子节点的空元素
+			console.log($("#app>div:empty"));
+			//:parent  选择具有子元素或子节点的非空元素
+			console.log($("#app>div:parent"))
+			//:contains   内容筛选；
+			console.log($("li:contains('周')"))
+			
+			//属性选择器
+			console.log($("img[alt='这是帅哥']"))
+			console.log($("img[alt^='这']"))
+			console.log($("img[alt$='帅哥']"))
+			console.log($("img[alt*='是']"))
+			
+			//获取隐藏的元素
+			//:hidden;  display:none的元素；
+			console.log($("div:hidden"));
+			
+			//表单
+		}
+		
+		{
+			// 过滤元素的方法  通过jqueryDom元素调用的方法
+			//eq()  选择指定索引的元素
+			$("#app>div").eq(0)
+			//next()  nextAll()  nextUntil()  获取统计下一个兄弟元素
+			//prev()  pervAll()  pervUntil()
+			console.log($(".box2").nextUntil(".box5"));
+			//siblings   除目标元素（唯一的）以外其他同级兄弟元素；
+			console.log($(".box").siblings())
+			//children();
+			//parent()
+			//parents();
+			//offsetParent();  //获取最近一层使用定位样式的父级元素
+			console.log($(".li1").offsetParent("#app"))
+			
+			//index()目标元素在同级元素中的索引位置；
+			// console.log($(".box5").index())
+			
+			// console.log($("li:eq(1)").parents("#app").next().children().eq(0).children().children().children())
+		}
+	</script>
+</html>

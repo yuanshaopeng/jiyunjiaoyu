@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			div{
+				width: 100px;
+				background: red;
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//原生touch
+		var div = document.querySelector("div");
+		div.addEventListener("touchstart",function(ev){
+			// ev.touches[0].clientX
+			console.log(ev);
+			console.log("摸了一下")
+		})
+		div.addEventListener("touchend",function(ev){
+			console.log(ev);
+			// ev.changedTouches[0].clientX;
+			console.log("摸完了")
+		})
+		div.addEventListener("touchmove",function(){
+			console.log("正在摸")
+			
+		})
+	</script>
+</html>

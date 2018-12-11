@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+	
+		
+	
+	
+	
+// 		var a,b;
+// 		if(true){
+// 			a = 10;
+// 		}else{
+// 			b = 30;
+// 		}
+// 		console.log(a,b)
+		// a 10,undefined   10 报错   10 30
+		// console.log(a,b);
+// 		
+// 		if(true){
+// 			let a = 10;
+// 			var b = 20;
+// 			console.log(a,b);
+// 		}else{
+// 			
+// 		}
+
+// 		let a = 10;
+// 		var b = 20;
+// 		var b = 30;
+// 		let a = 30;
+		
+		{
+			let a = 10;
+			{
+				let a = 20;
+				{//作用域开始   a的TDZ 开始
+					let b = 30;
+					let c = 40;
+					//a的TDZ结束
+					let a = 30;
+					{
+						let a = 40;
+						console.log(a)
+					}
+				
+				//作用域结束
+				}
+			}
+		}
+		
+// 		console.log(typeof ads)
+// 		let ads = 111;
+		
+		/*
+		 * let 
+		 * let 声明不可以变量提升；在声明之前不可用（报错）；
+		 * let 声明会有块级作用域（花阔号包裹的区域）；let变量只可在块级作用域中生效；
+		 * let 声明的变量在当前作用域中不可以重复声明
+		 * let 声明会产生暂时性死区（TDZ）在死区中使用会导致报错；
+		 * let 导致typeof不再是安全操作符 
+		 * let 在循环中使用时  循环计数从内存中抓取上次的循环结果；
+		 */
+		
+		// let在for循环中的使用
+		let arr = [];
+		for(let i = 0 ; i < 3 ; i++){
+// 			(function(i){
+// 				// i==>0;
+// 				arr.push(function(){
+// 					console.log(i);
+// 				})
+// 			})(i)
+			let i = "ssss";
+			arr.push(function(){
+				console.log(i);
+			})
+		}
+// 		{
+// 			let i = 0;
+// 			{
+// 				let i = "ssss";
+// 			arr.push(function(){
+// 				console.log(i);
+// 			})
+// 			}
+// 		}
+// 		
+// 		{
+// 			let i = 1;
+// 			{
+// 				let i = "ssss";
+// 			arr.push(function(){
+// 				console.log(i);
+// 			})
+// 			}
+// 		}
+// 		
+// 		{
+// 			let i = 2;
+// 			{
+// 				let i = "ssss";
+// 			arr.push(function(){
+// 				console.log(i);
+// 			})
+// 			}
+// 		}
+		arr[0]();  //0;
+		
+		{   
+			//const用来声明常量
+			//const在声明时就要赋值
+			const a = 10;
+// 			let a = 20;
+// 			var a = 30;
+			const arr = [1,2,3];
+			arr.push(4);
+			
+			const obj = {name:"lee"};
+			obj.name = "zhang";
+			console.log(arr)
+		}
+		
+		
+		{
+			let name = "zhang";
+			let obj = {
+				// name:name,//当键名与键值所对应的名称相同时   可以省略键值；
+				name,
+// 				say:function(){
+// 					alert(this.name);
+// 				},
+				say(a,b,c){
+					alert(a+","+b+","+c);
+				}
+			}
+			obj.say(10,20,30)
+			console.log(obj.name)
+// 			let a=10,b=20,c=30;
+// 			let obj = {a,b,c};
+		}
+	</script>
+</html>
