@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>path</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link :to="'/home/'+name">进入home页</router-link>
+			<router-view></router-view>
+		</div>
+		
+		<template id="tp1">
+			<div>
+				路由模板1
+				{{$route.params.id}}
+				<!--{{route}}-->
+				<!--<router-link :to="'/home/'+$route.para-->ms.id+'/page'">去page</router-link>
+				<!--<router-view></router-view>-->
+			</div>
+		</template>
+		<template id="tp2">
+			<div>
+				page
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		/*
+		 * path
+		 * 在路由配置中的path属性上添加/:属性标识   
+		 * $route.params.属性标识
+		 * 优势：快捷，简单，刷新页面数据不会丢失
+		 * 缺点：不能发送引用数据类型
+		 */
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/home/:id",
+					component:{
+						template:"#tp1",
+						mounted(){
+							console.log(this.$route.params)
+						}
+					},
+					children:[
+						{
+							path:"/home/:id/page",
+							component:{
+								template:"#tp2"
+							}
+						}
+					]
+				}
+			]
+		})
+		
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				name:{id:"12312"}
+			},
+			router
+		})
+	</script>
+</html>

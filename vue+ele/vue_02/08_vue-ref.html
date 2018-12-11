@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ref</title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--向标签添加ref标记   获取元素时通过ref标记获取-->
+			<h1 ref="main"></h1>
+			<p ref="ppp"></p>
+			<!-- 添加多个相同的ref标记时   要是v-for循环添加 -->
+			<span v-for="item in 5" ref="s">{{item}}</span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			methods:{
+				fn(){
+					//$nextTick()  等待页面渲染完毕后触发
+					this.$nextTick(()=>{
+						console.log(this.$refs)
+						//$refs  vue应用中所有的ref标识
+						console.log(this.$refs.s) //得到一组值
+					})
+				}
+			}
+		})
+//		vm.fn()
+	</script>
+</html>

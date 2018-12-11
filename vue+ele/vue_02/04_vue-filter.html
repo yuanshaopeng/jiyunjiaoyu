@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{time | timeType}}  
+			{{"adasdsadas" | toUpper}}
+			<!-- 被过滤的数据   | 过滤器-->
+			<!--123123   123,123.00-->
+		</div>
+	</body>
+	<script type="text/javascript">
+		//全局过滤器     全局都要写在实例化之前
+		Vue.filter("toUpper",(value)=>{
+			return value.toUpperCase();
+		})
+	
+	
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				time:new Date().getTime()
+			},
+			//局部过滤器
+			filters:{ //与angular相比    vue没有内置过滤器    vue中的过滤器都需要自定义配置
+				timeType(value){
+					console.log(value);
+					let date = new Date(value);
+					let y = date.getFullYear();
+					let m = date.getMonth()+1;
+					let d = date.getDate();
+					return y+"-"+m+"-"+d
+				},
+				numbers(value){
+					
+				}
+			}
+		})
+	</script>
+</html>

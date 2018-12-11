@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/page1">路由一</router-link>
+			<router-link to="/page2">路由二</router-link>
+			<router-link to="/page3">路由三</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			<div>
+				<input type="text" placeholder="请输入用户名" />
+				<input type="text" placeholder="请输入密码" />
+				<button>登陆</button>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/page1",
+					component:{
+						template:"<div>路由一</div>"
+					}
+				},
+				{
+					path:"/page2",
+					meta:{
+						isLogin:true
+					},
+					component:{
+						template:"<div>路由二</div>"
+					}
+				},
+				{
+					path:"/page3",
+					meta:{
+						power:1
+					}
+					component:{
+						template:"<div>路由三</div>"
+					}
+				},
+				{
+					path:"/login",
+					component:{
+						template:"#tp1"
+					}
+				}
+			]
+		})
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+		//全局路由钩子   针对所有的路由都产生作用
+		//进入每个路由前都会触发      路由拦截
+		router.beforeEach((to,from,next)=>{
+//			console.log(a,b,c)
+			console.log(to);
+			console.log(from)
+			if(to.meta.isLogin){
+				if(false){
+					next()
+				}else{
+					alert("你没权限，去登陆")
+					next("/login")
+				}
+			}else{
+				alert("爱谁谁")
+				next()
+			}
+			
+		})
+	</script>
+</html>

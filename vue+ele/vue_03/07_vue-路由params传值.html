@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>params</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link :to="{name:'page',params:{str}}">page</router-link>
+			<router-view></router-view>
+		</div>
+		
+		<template id="tp1">
+			<div>内容{{$route.params.str}}</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		/*
+		 * params  
+		 * params传值时刷新页面数据丢失
+		 * 好处：可以传递任意数据类型    传输量大
+		 */
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/page",
+					name:"page",
+					component:{
+						template:"#tp1",
+						mounted(){
+							console.log(this.$route)
+						}
+					}
+				}
+			]
+		})
+		
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				str:"xxxx",
+				obj:{
+					la:"aaa"
+				}
+			},
+			router
+		})
+	</script>
+</html>

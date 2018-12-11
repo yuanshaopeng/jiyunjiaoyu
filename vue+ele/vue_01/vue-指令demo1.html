@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.active{
+				background: red;
+			}
+		</style>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- swiper 轮播-->
+		<div id="app">
+			<button :class="currentIndex==index?'active':''" v-for="(item,index) in arr" @click="clickFn(index)">{{item.type}}</button>
+			<div v-show="currentIndex == index" v-for="(item,index) in arr">
+				<ul>
+					<li v-for="(item1,index1) in item.goods">
+						<img :src="item1.url" />
+						<h2>{{item1.goods_name}}</h2>
+						<p>{{item1.price}}</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				currentIndex:0,
+				arr:[
+					{
+						type:"男装",
+						goods:[{
+							goods_name:"男士夹克",
+							price:"200￥",
+							url:"./img/1.jpg"
+						},{
+							goods_name:"男士卫衣",
+							price:"20￥",
+							url:"./img/2.jpg"
+						}]
+					},{
+						type:"女装",
+						goods:[{
+							goods_name:"女生裙子",
+							price:"100￥",
+							url:"./img/3.jpg"
+						},{
+							goods_name:"旗袍",
+							price:"300￥",
+							url:"./img/4.jpg"
+						}]
+					},{
+						type:"电子商品",
+						goods:[{
+							goods_name:"oppo",
+							price:"1999￥",
+							url:"./img/5.jpg"
+						}]
+					}
+				]
+			},
+			methods:{
+				clickFn(index){
+					this.currentIndex = index;
+				}
+			}
+		})
+	</script>
+</html>

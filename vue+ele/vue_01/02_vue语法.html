@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--vue应用的容器-->
+		<div id="app">
+			<!--{{vue表达式}}-->
+			<!--表达式内部可以执行对应的js代码-->
+			{{"天气很晴朗"}}
+			{{"天气很晴朗".substr(0,2)}}
+			{{1+1}}
+			{{1+1==2?"正确":"错误"}}
+			
+		</div>
+		
+	</body>
+	
+	<script type="text/javascript">
+//		viewmodel
+		let vm = new Vue({
+			el:"#app"
+		})
+	</script>
+</html>

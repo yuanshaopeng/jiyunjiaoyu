@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--{{sum}}-->
+			<ul>
+				<li v-for="(item,index) in car">
+					<p>{{item.name}}</p>
+					<p>{{item.price}}</p>
+					<p><button>-</button>{{item.count}}<button @click="add(index)">+</button></p>
+				</li>
+			</ul>
+			<h2>总计：{{sum}}</h2>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				num:0,
+				count:1,
+				car:[
+					{
+						name:"商品1",
+						price:'10',
+						count:1
+					},
+					{
+						name:"商品2",
+						price:'20',
+						count:1
+					},
+					{
+						name:"商品3",
+						price:'30',
+						count:1
+					},
+				]
+			},
+			methods:{
+				add(index){
+					this.car[index].count++;
+				}
+			},
+			//计算属性    当计算属性中的函数使用到的data中的属性发生修改时(和缓存中的数据不一致时)，会执行计算属性对应的函数，
+			//必须具备返回值
+			computed:{
+				sum(){
+					var sum = 0;
+					for(var i = 0 ; i < this.car.length ;i++){
+						sum+= this.car[i].price*this.car[i].count
+					}
+					return sum
+				}
+			}
+		})
+	</script>
+</html>

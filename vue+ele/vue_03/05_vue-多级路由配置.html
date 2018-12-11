@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/home">home页</router-link>
+			<router-view></router-view>
+		</div>
+		
+		<template id="tp1">
+			<div>
+				<h1>我是主页</h1>
+				<router-link to="/home/home_1">进入1</router-link>
+				<router-link to="/home/home_2">进入2</router-link>
+				<router-view></router-view>
+			</div>
+		</template>
+		
+		<template id="tp2">
+			<div>
+				<h1>我是主页中的子路由之一</h1>
+			</div>
+		</template>
+		<template id="tp3">
+			<div>
+				<h1>我是主页中的子路由之二</h1>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/",
+					redirect:"/home"
+				},
+				{
+					path:"/home",
+					component:{
+						template:"#tp1"
+					},
+					//路由重定向
+					redirect:"/home/home_1",
+					//当前路由中的子路由配置
+					children:[
+						{
+							path:"/home/home_1",
+							component:{
+								template:"#tp2"
+							}
+						},
+						{
+							path:"/home/home_2",
+							component:{
+								template:"#tp3"
+							}
+						}
+					]
+				}
+			]
+		})
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+	</script>
+</html>

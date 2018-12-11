@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/shop/01" >男装</router-link>
+			<router-link to="/shop/02" >女装</router-link>
+			<router-link to="/shop/03" >童装</router-link>
+			<router-view></router-view>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/shop/:id",
+					component:{
+						template:"<div></div>",
+						methods:{
+							req(){
+								console.log(this.$route.params.id);
+							}
+						},
+						mounted(){
+							console.log(1)
+							this.req();
+						},
+						updated(){
+							console.log(111)
+							this.req();
+						},
+						beforeRouteUpdate(to,from,next){
+							console.log(222);
+							console.log(this);
+							next()
+						}
+					}
+				}
+			]
+		})
+		
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+	</script>
+</html>

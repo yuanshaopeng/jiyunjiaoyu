@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			标题：<input type="text" v-model="title" /><br />
+			内容：<textarea name="" id="" cols="30" rows="10" v-model="content"></textarea><br />
+			<button v-show="bol" @click="add">提交</button>
+			<button v-show="!bol" @click="makeSure">确认修改</button>
+			<ul>
+				<li v-for="(item,index) in dataArr" >
+					<h2>{{item.title}}</h2>
+					<p>{{item.content}}</p>
+					<a href="#" @click="del(index)">删除</a>
+					<a href="#" @click="resets(index)">修改</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+	/*
+	 * 
+	 */
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				title:"",
+				content:"",
+				dataArr:[],
+				bol:true,
+				updateIndex:""
+			},
+			methods:{
+				add(){
+					this.dataArr.push({
+						title:this.title,
+						content:this.content
+					})
+					this.title="";
+					this.content="";
+				},
+				del(index){
+					this.dataArr.splice(index,1)
+				},
+				resets(index){
+					this.title = this.dataArr[index].title;
+					this.content = this.dataArr[index].content;
+					this.bol = false;
+					this.updateIndex = index;
+				},
+				makeSure(){
+					this.dataArr[this.updateIndex].title=this.title;
+					this.dataArr[this.updateIndex].content=this.content;
+					this.bol = true;
+				}
+			}
+		})
+	</script>
+</html>

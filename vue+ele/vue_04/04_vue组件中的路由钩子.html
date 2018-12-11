@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="add">+1</button>{{num}}
+			<router-link :to="{path:'/page1',query:{num:num}}">路由一</router-link>
+			<router-link :to="{path:'/page1',query:{num:num}}">路由一</router-link>
+			<router-link to="/page3">路由三</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			<div>
+				<input type="text" placeholder="请输入用户名" />
+				<input type="text" placeholder="请输入密码" />
+				<button>登陆</button>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/page1",
+					component:{
+						template:"<div class='div1'>路由一 {{$route.query.num}}</div>",
+						beforeRouteEnter(to,from,next){
+							console.log(to,from)
+							console.log("进入前",this);//==>this指向window
+							next()
+						},
+						beforeRouteLeave(to,from,next){
+							//销毁当前路由组件
+							console.log(to,from)
+							console.log("离开前",this);//this指向当前路由组件
+							next()
+						},
+						//当由当前路由进入当前路由时发送的数据发生更改触发
+						beforeRouteUpdate(to,from,next){
+							console.log(to,from);
+							console.log("更改前",this);
+							next()
+						}
+					}
+				},
+				{
+					path:"/page2",
+					component:{
+						template:"<div>路由二</div>"
+					}
+				},
+				{
+					path:"/page3",
+					component:{
+						template:"<div>路由三</div>"
+					}
+				},
+				{
+					path:"/login",
+					component:{
+						template:"#tp1"
+					}
+				}
+			]
+		})
+		let vm = new Vue({
+			el:"#app",
+			router,
+			data:{
+				num:1
+			},
+			methods:{
+				add(){
+					this.num++;
+				}
+			}
+		})
+		
+	</script>
+</html>

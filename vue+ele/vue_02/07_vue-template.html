@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--<p>{{name}}</p>-->
+		</div>
+		
+		<template id="tp1">
+			<div id="app">
+				<p>{{name}}</p>
+			</div>
+			<!--在模板中只能创建一个根元素-->
+		</template>
+	</body>
+	<script type="text/template" id="tp2">
+		<div id="app"><p>{{name}}</p></div>
+	</script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				name:"lee",
+			},
+//			template:"<div id='app'></div>",
+			template:"#tp1"
+		})
+	</script>
+</html>

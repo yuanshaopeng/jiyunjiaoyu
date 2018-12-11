@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			<div>
+				<ul>
+					<li v-for="item in msg">
+						<h2><router-link :to="'/art/'+item.id">{{item.title}}</router-link></h2>
+					</li>
+				</ul>
+			</div>
+		</template>
+		<template id="tp2">
+			<div>
+				<router-link to="/">返回</router-link>
+				<h2>{{title}}</h2>
+				<p>{{content}}</p>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/",
+					component:{
+						template:"#tp1",
+						data(){
+							return {
+								msg:[
+									{
+										id:"01",
+										title:"习大大去哪儿了"
+									},
+									{
+										id:"02",
+										title:"李咏去哪儿了"
+									},
+									{
+										id:"03",
+										title:"大家去哪儿了"
+									}
+								]
+							}
+						}
+					}
+				},
+				{
+					path:"/art/:id",
+					component:{
+						template:"#tp2",
+						data(){
+							return {
+								data:[{
+									id:"01",
+									title:"习大大去哪儿了",
+									content:"习大大去海南了xxxxxxxxxx,热烈欢迎！"
+								},{
+									id:"02",
+									title:"李咏去哪儿了",
+									content:"活在我们的心中，非常6+1"
+								},{
+									id:"03",
+									title:"大家去哪儿了",
+									content:"通过一系列的奋发努力，终于就业了"
+								}],
+								title:"",
+								content:""
+							}
+						},
+						mounted(){
+							var id = this.$route.params.id;
+							let arr = this.data.filter((item,index)=>{
+								if(item.id == id){
+									return true;
+								}else{
+									return false;
+								}
+							})
+							this.title = arr[0].title;
+							this.content = arr[0].content;
+						}
+					}
+				}
+			]
+		})
+		
+		
+		
+		
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+	</script>
+</html>

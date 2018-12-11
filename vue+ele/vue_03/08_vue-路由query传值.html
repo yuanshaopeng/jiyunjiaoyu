@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>query</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link :to="{path:'/home',query:{a,obj:JSON.stringify(obj)}}">home</router-link>
+			<router-view></router-view>
+		</div>
+		
+		<template id="tp1">
+			<div>
+				内容{{$route.query.obj}}
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[{
+				path:"/home",
+				component:{
+					template:"#tp1",
+					mounted(){
+						console.log(this.$route)
+					}
+				}
+			}]
+		})
+
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				a:"1",
+				obj:{
+					ss:"xxx"
+				}
+			},
+			router
+		})
+	</script>
+</html>

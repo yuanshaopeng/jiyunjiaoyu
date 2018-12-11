@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body style="height: 2000px;">
+		<!--
+			每次挂载的时候会运行一次
+			beforeCreate   创建前
+			created   创建后
+			beforeMount   挂载前
+			mounted   挂在后
+			
+			beforeUpdate   更新前
+			updated   更新后
+		-->
+		<div id="app">
+			<button @click="comp = 'myComp'">1</button>
+			<button @click="comp= 'youComp'">2</button>
+			<!--缓存组件   
+				会导致被缓存的组件头四个生命周期只在第一次使用时运行
+				当组件销毁后   缓存中也会对应删除
+			-->
+			<keep-alive>
+				<component :is="comp"></component>
+			</keep-alive>
+		</div>
+		<template id="tp1">
+			<div class="div1">
+				{{msg}}
+				{{num}}
+				<button @click="fn">run</button>
+				<button @click = "add1">+1</button>
+				<button @click="del">销毁</button>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		/*
+		 * 钩子函数  
+		 * 作用：用来监听页面中的某些状态
+		 * 1、组件中的钩子函数     监听组件生命周期状态
+		 * 2、路由钩子函数         监听路由的改变
+		 * 3、自定义指令中的钩子函数            监听自定义指令的状态
+		 * 
+		 */
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				comp:"myComp"
+			},
+			components:{
+				myComp:{
+					template:"#tp1",
+					data(){
+						return {
+							msg:"信息",
+							num:1
+						}
+					},
+					methods:{
+						fn(){
+							alert("run")
+						},
+						add1(){
+							this.num++;
+						},
+						del(){
+							this.$destroy();
+						},
+						ss(){
+							this.timer = setInterval(()=>{
+								this.num++;
+								console.log(this.num)
+							},1000)
+						}
+					},
+					//创建前生命周期
+					beforeCreate(){
+						console.log("创建前");
+						//在创建前，dom树以及数据模块抓取不到
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					},
+					created(){
+						console.log("创建后")
+						//在创建后，dom抓取不到，而数据可以提取
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					},
+					beforeMount(){
+						console.log("挂载前")
+						//在挂载前，dom抓取不到，而数据可以提取
+						//完善了虚拟dom；   对模板dom进行映射 ==>  js对象
+						//先占住坑位
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					},
+					mounted(){
+						console.log("挂载后")
+						this.ss();
+						//在挂载后，dom,数据可以提取    
+						//真正渲染在页面上
+						//大部分的初始化操作都会在mounted函数中运行
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					},
+					beforeUpdate(){
+						//当前组件data中的数据发生改变，且被绑定到页面上才会触发
+						console.log("更新前")
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					},
+					updated(){
+						console.log("更新后")
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					},
+					beforeDestroy(){
+						console.log("销毁前")
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					},
+					destroyed(){
+						console.log("销毁后")
+						//清除当前组件中的定时器
+						//清除绑定的dom事件
+						//不再监听数据的双向绑定
+						clearInterval(this.timer)
+						console.log(this.$el);
+						console.log(this.$data);
+						console.log("----------------------------")
+					}
+				},
+				youComp:{
+					template:"<div>222</div>"
+				}
+			}
+		})
+	</script>
+</html>

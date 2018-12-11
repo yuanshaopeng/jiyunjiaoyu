@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 
+			v-model  绑定文本输入框时   v-model绑定的值就是输入框的value值 
+			v-model  绑定单选框时   v-model绑定的值选中的单选框的value值 
+			v-model  绑定复选框时   v-model绑定的值若为布尔值时，可以控制复选框的选中状态
+			而多个复选框绑定同一值，且此值为数组，会把选中的复选框的value值推入数组中
+			 -->
+			<input type="text" v-model="val" />{{val}}
+			<input id="girl" v-model="bol1" type="radio" value="girl" name="sex" /><label for="girl">女</label>
+			<input id="boy" v-model="bol1" type="radio" value="boy" name="sex" /><label for="boy">男</label>
+			{{bol1}}
+			<input type="checkbox" value="menu1" name="choose" v-model="bol" />
+			<input type="checkbox" value="menu2" name="choose" v-model="bol" />
+			<input type="checkbox" value="menu3" name="choose" v-model="bol" />
+			<input type="checkbox" value="menu4" name="choose" v-model="bol" />
+			{{bol}}
+			<h2>汪蕊是个什么样的人</h2>
+			<input type="checkbox" v-model="chooseArr" value="热心的" />热心的
+			<input type="checkbox" v-model="chooseArr" value="没脑子的 " />没脑子的
+			<input type="checkbox" v-model="chooseArr" value="漂亮的" />漂亮的
+			<input type="checkbox" v-model="chooseArr" value="偷懒的" />偷懒的
+			<p>{{chooseArr.join(" ")}}</p>
+		</div>
+		
+		<!--<input type="text" />-->
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				val:"",
+				bol1:"",
+				bol:[],
+				chooseArr:[],
+			}
+		})
+		
+	</script>
+</html>

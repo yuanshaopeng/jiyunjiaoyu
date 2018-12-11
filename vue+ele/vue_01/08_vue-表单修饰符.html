@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--
+				.number  将输入框的value值类型转为数字，如果输入框的值不是数字   则不生效
+				.trim   去除输入框的首尾空格符
+				.lazy   将输入框的值的监听有input事件变为change事件
+			-->
+			<input type="text" v-model.number.trim.lazy="m1" />
+			{{m1}}
+			<br />
+			<input type="text" v-model.trim="m2" />
+			{{m2}}
+			<br />
+			<input type="text" v-model.lazy="m3" />
+			{{m3}}
+			<br />
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				m1:"",
+				m2:"",
+				m3:""
+			}
+		})
+	</script>
+</html>

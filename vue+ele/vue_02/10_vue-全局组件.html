@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-comp></my-comp>
+		</div>
+		<template id="tp1">
+			<div>
+				{{xx}}
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		//全局组件        全局皆可使用
+		Vue.component("my-comp",{
+			template:"#tp1",
+			data(){
+				return {
+					xx:"xx"
+				}
+			}
+		})
+		let vm = new Vue({
+			el:"#app"
+		})
+	</script>
+</html>

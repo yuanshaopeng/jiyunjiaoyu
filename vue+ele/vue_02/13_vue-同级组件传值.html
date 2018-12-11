@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<comp-first></comp-first>
+			<comp-second></comp-second>
+		</div>
+		
+		<template id="tp1">
+			<div>
+				<h2>这是第一个组件</h2>
+				<button @click="sendData">发送数据</button>
+			</div>
+		</template>
+		<template id="tp2">
+			<div>
+				<h2>这是第二个组件</h2>
+				{{msg}}
+				<button @click="sendData">发送数据</button>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let bus = new Vue();
+		var compFirst = {
+			template:"#tp1",
+			data(){
+				return {
+					msg1:"第一个子组件中的数据",
+					msg2:2,
+					msg3:3
+				}
+			},
+			methods:{
+				sendData(){
+					bus.$emit("send",{msg1:this.msg1,msg2:this.msg2,msg3:this.msg3});
+				}
+			},
+			mounted(){
+				bus.$on("sendtofirst",(data)=>{
+					console.log(data);
+				})
+			}
+		}
+		
+		var compSecond = {
+			template:"#tp2",
+			data(){
+				return {
+					msg:null,
+					num:10
+				}
+			},
+			methods:{
+				sendData(){
+					bus.$emit("sendtofirst",this.num);
+				}
+			},
+			//当页面回显挂载完毕后触发
+			mounted(){ //this==>当前组件
+				bus.$on("send",(data)=>{
+					console.log(data);
+					this.msg = data.msg1;
+				})
+			}
+		}
+		let vm = new Vue({
+			el:"#app",
+			components:{
+				compFirst,
+				compSecond
+			}
+		})
+		
+	</script>
+</html>

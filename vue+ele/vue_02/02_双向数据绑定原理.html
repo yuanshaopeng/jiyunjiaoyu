@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>{{name}}</h1>
+	</body>
+	<script type="text/javascript">
+	
+		var h1 = document.querySelector("h1");
+		var obj = {
+			name:"lee",
+			age:18
+		}
+		h1.innerHTML = obj.name;
+		Object.defineProperty(obj,"_name",{
+			get(){
+				console.log("get run");
+				return obj.name;
+			},
+			set(value){//value==>设置的新的值
+				console.log("set run")
+				obj.name = value;
+				h1.innerHTML = obj._name;
+			}
+		})
+//		obj.name
+		function Fn(obj){
+			this.data = obj.data;
+		}
+		Fn.prototype.maps = function(){
+			for (let k in this.data) {
+				Object.defineProperty(this.data,"_"+k,{
+					get(){
+						console.log("get run");
+						return obj[k];
+					},
+					set(value){//value==>设置的新的值
+						console.log("set run")
+						obj[k] = value;
+						h1.innerHTML = obj["_"+k];
+					}
+				})
+			}
+		}
+		
+	</script>
+</html>

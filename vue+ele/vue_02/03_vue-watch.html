@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<select name="" v-model="s">
+				<option v-for="item in city" :value="item.name">{{item.name}}</option>
+			</select>省
+			<select name="">
+				<option v-for="item in c" :value="item">{{item}}</option>
+			</select>市
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				num:10,
+				obj:{name:"lee"},
+				city:[{
+					name:"河南",
+					city:["安阳","郑州"]
+				},{
+					name:"山西",
+					city:["吕梁","大同"]
+				}],
+				arr:[1,2,3,4],
+				s:"",
+				c:[]
+			},
+			watch:{
+				num(nval,oval){
+					console.log(nval,oval);
+				},
+				s(nval){
+					this.c = this.city.filter((item,index)=>{
+						if(item.name == nval){
+							return true
+						}else{
+							return false;
+						}
+					})[0].city.slice(0)
+				}
+			}
+		})
+	</script>
+</html>

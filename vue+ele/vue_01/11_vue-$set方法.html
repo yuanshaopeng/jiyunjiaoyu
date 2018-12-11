@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="item in arr">{{item}}</li>
+			</ul>
+			
+			<ul>
+				<li v-for="value in obj">
+					{{value}}
+				</li>
+			</ul>
+			<button @click="change">aaa</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				arr:[1,2,3,4],
+				obj:{
+					name:"lee",
+					age:'18'
+				}
+			},
+			methods:{
+				change(){
+					this.arr.push(10)
+					this.$set(this.arr,0,10);
+					this.$set(this.obj,"name","zhang")
+					console.log(this.arr)
+				}
+			}
+		})
+	</script>
+</html>

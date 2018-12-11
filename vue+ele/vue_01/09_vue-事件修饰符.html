@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.div1{
+				padding: 100px;
+			}
+			.div1{
+				background: red;
+			}
+			.div1 .div1{
+				background: yellow;
+			}
+			.div1 .div1 .div1{
+				background: green;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			#app{
+				width: 100%;
+				height: 100%;
+			}
+			#wrap{
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.7);
+			}
+			#content{
+				width: 80%;
+				height: 50%;
+				background: white;
+			}
+		</style>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--
+			鼠标事件：
+			.stop:阻止冒泡修饰符
+			.capture:开启事件捕获   由外向内
+			.once:一次性 事件
+			.self:只有直接作用于元素自身时才会触发事件
+			.prevent:阻止浏览器默认事件
+		-->
+		<!--
+			键盘事件修饰符
+			.enter
+			.tab
+			.delete (捕获 "删除" 和 "退格" 键)
+			.esc
+			.space
+			.up
+			.down
+			.left
+			.right
+			.ctrl
+			.alt
+			.shift
+			.meta 
+			.code
+		-->
+		<div id="app">
+			<!--<div class="div1" @click.self="fn1">
+				<div class="div1" @click.self="fn2">
+					<div class="div1" @click.self="fn3"></div>
+				</div>
+			</div>
+			<form action="" method="post">
+				
+				<input type="submit" @click.prevent value="提交"/>
+			</form>-->
+			
+			<!--弹框遮层-->
+			<div v-show="bol" id="wrap" @click="bol=false">
+				<div id="content" @click.stop.prevent.once.self.capture></div>
+			</div>
+			<input type="text" @keydown="keyborad" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				bol:true,
+			},
+			methods:{
+				fn1(){
+					alert("红色")
+				},
+				fn2(){
+					alert("黄色")
+				},
+				fn3(){
+					alert("绿色")
+				},
+				keyborad(){
+					console.log("run")
+				}
+			}
+		})
+	</script>
+</html>

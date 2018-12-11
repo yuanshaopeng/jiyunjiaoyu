@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/page1">路由一</router-link>
+			<router-link to="/page2">路由二</router-link>
+			<router-link to="/page3">路由三</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			<div>
+				<input type="text" placeholder="请输入用户名" />
+				<input type="text" placeholder="请输入密码" />
+				<button>登陆</button>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[
+				{
+					path:"/page1",
+					component:{
+						template:"<div>路由一</div>"
+					},
+					//局部路由钩子   进入前
+					beforeEnter(to,from,next){
+						console.log(to,from);
+//						console.log(this)=>window;
+						next()
+					}
+				},
+				{
+					path:"/page2",
+					component:{
+						template:"<div>路由二</div>"
+					}
+				},
+				{
+					path:"/page3",
+					component:{
+						template:"<div>路由三</div>"
+					}
+				},
+				{
+					path:"/login",
+					component:{
+						template:"#tp1"
+					}
+				}
+			]
+		})
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+		
+	</script>
+</html>

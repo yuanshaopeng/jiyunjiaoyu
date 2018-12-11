@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 动态加载组件的容器   
+				is属性对应要渲染的组件名称
+				:is
+			-->
+			<button @click="comp='compF'">1</button><button @click="comp='compS'">2</button><button @click="comp='compT'">3</button>
+			<component :datas="comp" :is="comp"></component>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				comp:"compF"
+			},
+			components:{
+				compF:{
+					template:"<div>1</div>",
+					props:["datas"],
+					mounted(){
+						console.log(this.datas)
+					}
+				},
+				compS:{
+					template:"<div>2</div>"
+				},
+				compT:{
+					template:"<div>3</div>"
+				}
+			}
+		})
+	</script>
+</html>

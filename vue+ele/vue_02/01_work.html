@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h2>商品</h2>
+			<ul>
+				<li v-for="item in arr">
+					<h3>{{item.name}}</h3>
+					<p>{{item.price}}</p>
+					<button @click="add(item)">加入购物车</button>
+				</li>
+			</ul>
+			<h2>购物车</h2>
+			<ul>
+				<li v-if="car.length == 0">购物车空空如也</li>
+				<li v-else  v-for="item in car">
+					<h3>{{item.name}}</h3>
+					<p>{{item.price}}</p>
+					<p>{{item.count}}</p>
+				</li>
+			</ul>
+			{{sum}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				arr:[{
+					id:1,
+					name:"遥控汽车",
+					price:50
+				},{
+					id:2,
+					name:"笔记本电脑",
+					price:4999
+				},{
+					id:3,
+					name:"涨薪杯",
+					price:10
+				}],
+				car:[]
+			},
+			methods:{
+				add(obj){
+					let index = this.car.findIndex((item,index)=>{
+						if(item.id == obj.id){
+							return true
+						}else{
+							return false;
+						}
+					})
+					if(index>=0){
+						this.car[index].count++;
+						this.$set(this.car,index,this.car[index])
+					}else{
+						obj.count = 1;
+						this.car.push(obj)
+					}
+				}
+			},
+			computed:{
+				sum(){
+					var sum = 0;
+					for(var i = 0 ; i < this.car.length ; i++){
+						sum += this.car[i].price*this.car[i].count;
+					}
+					return sum;
+				}
+			}
+		})
+	</script>
+</html>

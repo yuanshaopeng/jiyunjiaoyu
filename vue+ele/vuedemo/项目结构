@@ -1,0 +1,10 @@
+可以分为4个路由
+/     项目主页
+/admin   后台管理路由界面
+/car   购物车
+/option  商品详情
+
+App.vue  ==>router-view
+
+
+

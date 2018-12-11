@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<!--vue中不包含vue-router   所以需要独立安装-->
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--路由入口-->
+			<router-link to="/">菜单一</router-link>
+			<router-link to="/page2">菜单二</router-link>
+			<!--路由可视区-->
+			<router-view></router-view>
+		</div>
+		
+		<template id="tp1">
+			<div>
+				路由一界面
+			</div>
+		</template>
+		<template id="tp2">
+			<div>
+				路由二界面
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		
+		let router = new VueRouter({
+			routes:[
+				{
+					//默认进入的路由路径为/
+					path:"/",
+					component:{
+						template:"#tp1"
+					}
+				},
+				{
+					path:"/page2",
+					component:{
+						template:"#tp2"
+					}
+				}
+			]
+		})
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+	</script>
+</html>

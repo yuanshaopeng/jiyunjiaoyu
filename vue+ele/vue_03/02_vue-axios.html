@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--vue
+			vue中的数据请求使用第三方axios完成数据请求
+		-->
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<!-- axios做数据请求的脚本 -->
+		<script src="js/axios.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+	const baseURL="http://localhost:8080"
+		let vm = new Vue({
+			el:"#app",
+			methods:{
+				getReq(){
+					/*
+					 * 1、使用了promise对象完成的封装；
+					 * 
+					 */
+					axios({
+						method:"get",
+						url:"/api",
+						baseURL,
+						params:{
+							name:"lee",
+							age:18
+						}
+					})
+					.then(res=>{
+//						console.log(res.data.data);
+						/*
+						 * res.data  ==>后台返回的数据
+						 * res.config ==>请求配置
+						 * res.headers ==>请求头
+						 * status:200
+						 * statusText:"OK"
+						 */
+					})
+				},
+				postReq(){
+					//数据格式处理
+					let params = new URLSearchParams();
+					params.append("name","lee");
+					params.append("age",19);
+					
+					//qs插件处理数据格式
+					axios({
+						method:"post",
+						url:"/api",
+						baseURL,
+						data:params,
+						headers:{
+							"content-type":"application/x-www-form-urlencoded"
+						}
+					})
+					.then(res=>{
+						console.log(res);
+					})
+				}
+				
+			}
+		})
+//		axios.get(路径,{params:数据}).then(res=>{});
+//		axios.post(路径,通过格式处理后的数据,{headers:{"content-type":"application/x-www-form-urlencoded"}})
+//		.then(res=>{});
+//		axios.delete();
+//		axios.put();
+		
+//		axios.get(baseURL+"/api",{params:{name:111}})
+//		.then(res=>{
+//			console.log(res);
+//		})
+
+		let params = new URLSearchParams();
+		params.append("name","lee");
+		params.append("age",19);
+		axios.post(baseURL+"/api",params,{headers:{"content-type":"application/x-www-form-urlencoded"}})
+		.then(res=>{
+			console.log(res);
+		})
+		
+//		vm.getReq()
+//		vm.postReq()
+	</script>
+</html>

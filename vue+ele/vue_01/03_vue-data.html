@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--vue 动态绑定的数据需要在data中提前声明，否则报错-->
+		<div id="app">
+			{{a++}}
+			{{arr[2]}}
+			{{obj.name}}
+			<!--{{b}}-->
+			{{fn()}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{  //初始化页面绑定数据   data中不能存放函数
+				a:"",
+				arr:[1,2,3,4],
+				obj:{
+					name:"lee"
+				},
+				fn(){
+					alert(1);
+				}
+			}
+		})
+	</script>
+</html>

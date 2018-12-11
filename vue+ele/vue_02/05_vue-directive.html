@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义指令</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-focus="bol" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		//vue与angular不同   
+		//vue中自定义组件与自定义指令是分离的   
+		//angular中自定义组件与自定义指令是混合在一起的
+		//全局自定义指令
+//		Vue.directive("指令名称",{
+//			inserted(el,opt){
+//				
+//			},
+//			update(el,opt){
+//				
+//			}
+//		})
+		
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				bol:true
+			},
+			methods:{},
+			computed:{},
+			watch:{},
+			filters:{},
+			//局部自定义指令
+			directives:{
+				focus:{
+					//当自定义指令绑定到元素时会触发
+					inserted(el,options){
+						console.log(el,options)
+						
+						if(options.value){
+							
+							el.focus()
+						}else{
+							return 
+						}
+					},
+					//当自定义指令绑定的值发生修改时触发
+					update(el,options){
+						console.log(el,options)
+					}
+				}
+			}
+		})
+	</script>
+</html>
