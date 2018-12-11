@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.successText{
+				color: green;
+			}
+			.wraningText{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入用户名" /><span class="wraningText"></span><br />
+		<input type="text" placeholder="请输入手机号" /><span class="wraningText"></span><br />
+		<input type="text" placeholder="请输入密码" /><span class="wraningText"></span><br />
+		<input type="text" placeholder="请确认密码" /><span class="wraningText"></span><br />
+		<input type="checkbox" />同意条款
+		<button disabled="disabled">注册</button>
+	</body>
+	<script src="../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let userNameReg = /[(毛主席)(周恩来)(邓小平)(习近平)]/i;
+		let telReg = /^1[3456789]\d{9}$/;
+		let firstPassReg = /^\d{8,16}$/;
+		let secondPassReg = /^[a-z]{8,16}$/;
+		let thirdPassReg = /^[A-Z]{8,16}$/;
+		let middlePassReg = /^[0-9a-zA-Z]{8,16}$/;
+		let highPassReg = /^\w{8,16}$/;
+		$("input").eq(0).on("blur",function(){
+			if(userNameReg.test($(this).val())){
+				$(this).next().html("用户名不合法").prop("class","wraningText")
+				if(changedisable()){
+					$("button").removeAttr("disabled");
+				}else{
+					$("button").attr("disabled","disabled")
+				}
+			}else{
+				if(telReg.test($(this).val())){
+					$(this).next().html("用户名不能为手机号").prop("class","wraningText");
+					if(changedisable()){
+						$("button").removeAttr("disabled");
+					}else{
+						$("button").attr("disabled","disabled")
+					}
+				}else{
+					ajax.get("/user/yz",{username:$(this).val()}).then(res=>{
+						res=JSON.parse(res)
+						if(res.status==1){
+							$(this).next().html("ok").prop("class","successText")
+						}else{
+							$(this).next().html(res.statusText).prop("class","wraningText")
+						}
+						if(changedisable()){
+							$("button").removeAttr("disabled");
+						}else{
+							$("button").attr("disabled","disabled")
+						}
+					})
+				}
+				
+			}
+					
+		})
+		$("input").eq(1).on("blur",function(){
+			if(telReg.test($(this).val())){
+				ajax.get("/user/yz",{tel:$(this).val()}).then(res=>{
+					res=JSON.parse(res)
+					if(res.status==1){
+						$(this).next().html("ok").prop("class","successText")
+					}else{
+						$(this).next().html(res.statusText).prop("class","wraningText")
+					}
+					if(changedisable()){
+						$("button").removeAttr("disabled");
+					}else{
+						$("button").attr("disabled","disabled")
+					}
+				})
+			}else{
+				$(this).next().html("手机号格式不符").prop("class","wraningText")
+				if(changedisable()){
+					$("button").removeAttr("disabled");
+				}else{
+					$("button").attr("disabled","disabled")
+				}
+			}
+		})
+		$("input").eq(2).on("blur",function(){
+			let pass = $(this).val();
+			if(firstPassReg.test(pass)||secondPassReg.test(pass)||thirdPassReg.test(pass)){
+				$(this).next().html("密码等级初级").prop("class","successText")
+			}else if(middlePassReg.test(pass)){
+				$(this).next().html("密码等级中级").prop("class","successText")
+			}else if(highPassReg.test(pass)){
+				$(this).next().html("密码等级高级").prop("class","successText")
+			}else{
+				$(this).next().html("格式不符").prop("class","wraningText")
+			}
+			if(changedisable()){
+				$("button").removeAttr("disabled");
+			}else{
+				$("button").attr("disabled","disabled")
+			}
+		})
+		$("input").eq(3).on("blur",function(){
+			let pass = $(this).val();
+			if(pass == $("input").eq(2).val()){
+				$(this).next().html("ok").prop("class","successText")
+			}else{
+				$(this).next().html("密码不符").prop("class","wraningText")
+			}
+			if(changedisable()){
+				$("button").removeAttr("disabled");
+			}else{
+				$("button").attr("disabled","disabled")
+			}
+		})
+		$("input").eq(4).click(function(){
+			if(changedisable()){
+				$("button").removeAttr("disabled");
+			}else{
+				$("button").attr("disabled","disabled")
+			}
+		})
+		function changedisable(){
+			let bol =true;
+			$("span").each(function(){
+				if($(this).prop("class") == "wraningText"){
+					bol = false;
+				}
+			})
+			if(!$("[type='checkbox']").prop("checked")){
+				bol = false;
+			}
+			return bol
+		}
+		
+		$("button").click(function(){
+			ajax.post("/user/zhuce",{
+				username:$("input").eq(0).val(),
+				tel:$("input").eq(1).val(),
+				password:$("input").eq(2).val(),
+			}).then(res=>{
+				res = JSON.parse(res);
+				if(res.status == 1){
+					window.location.href=res.url;
+				}
+			})
+		})
+	</script>
+</html>

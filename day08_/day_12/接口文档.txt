@@ -1,0 +1,87 @@
+服务器地址 ：http://localhost:8080;
+
+1、获取所有留言数据接口
+接口路径："/bbs",
+请求方式："get"
+发送参数：null
+响应数据：{
+		status:"1",
+		statusText:"success",
+		data:[
+			{   
+				id:"留言的唯一标识",
+				title:"留言标题",
+				content:"留言信息",
+				time:"留言时间",
+			}
+		]
+	}
+
+2、提交留言接口
+接口路径："/bbs",
+请求方式：post
+发送参数：{
+		title:'留言标题',
+		content："留言内容"
+	}
+响应数据：{
+		status:"1",“0”,"-1"
+		statusText:"写入成功",
+		data:null
+	}
+
+3、获取一条留言信息接口
+接口路径：“/onebbs”
+请求方式： get
+发送参数：{id:留言id}
+响应数据：{
+		status:"1","0","-1",
+		statusText:"成功",
+		data：{   
+				id:"留言的唯一标识",
+				title:"留言标题",
+				content:"留言信息",
+				time:"留言时间",
+			}
+		
+	}
+
+4、删除一条留言
+接口路径：“/delonebbs”
+请求方式： post
+发送参数：{id:留言id}
+响应数据：{
+		status:"1","0","-1",
+		statusText:"成功",
+		data：null
+	}
+
+5、删除多条留言
+接口路径：“/delmanybbs”
+请求方式： post
+发送参数：{delArr:[id,id,id]}
+响应数据：{
+		status:"1","0","-1",
+		statusText:"成功",
+		data：null
+	}
+6、清空留言接口
+接口路径：“/delallbbs”
+请求方式： post
+发送参数：
+响应数据：{
+		status:"1","0","-1",
+		statusText:"成功",
+		data：null
+		
+	}
+	
+7、修改一条留言接口
+接口路径：“/update”
+请求方式：post
+发送参数：{id：留言标识,updataKey}
+响应数据：{
+	status:"1","0","-1",
+	statusText:"成功",
+	data：null
+}

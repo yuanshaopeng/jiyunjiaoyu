@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input id="search" type="text" /><button>搜索</button>
+		<ul>
+			<li>
+				
+			</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		let search = document.querySelector('#search');
+		function searchFn(msg){
+			console.log(msg)
+			let str = ""
+			for (var i = 0 ; i < msg.result.length ;i++) {
+				str+=`<li>${msg.result[i][0]}</li>`
+			}
+			document.querySelector("ul").innerHTML = str;
+		}
+		let timer = null;
+		search.oninput = function(){
+			clearInterval(timer);
+			timer = setTimeout(function(){
+				let code = search.value;
+				let sc = document.createElement("script");
+				sc.src = "https://suggest.taobao.com/sug?q="+code+"&callback=searchFn";
+				document.body.appendChild(sc);
+				console.log(code)
+				sc.remove()
+			},500)
+		}
+	</script>
+</html>

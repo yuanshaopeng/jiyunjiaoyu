@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="../public/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		ajax.post("http://localhost:8080/api?num=111",{
+			name:"lee",
+			password:"123123"
+		}).then(res=>{
+			console.log(res);
+		})
+		ajax.jsonp("http://localhost:8080/jsonp").then(res=>{
+			console.log(res);
+		})
+	</script>
+</html>

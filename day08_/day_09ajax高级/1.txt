@@ -1,0 +1,1 @@
+fn([{"title":"hahaha","content":"asdasd"}])

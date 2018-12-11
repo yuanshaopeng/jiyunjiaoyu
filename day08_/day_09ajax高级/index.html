@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jquery ajax</title>
+		<style type="text/css">
+			/*  权重
+			 *	id:0100
+			 *  class:0010
+			 *  tagName:0001
+			 *  行内样式  以及  ！important：1000
+			 *  
+			 */
+			#div{
+				width: 200px;
+				height: 200px;
+				background: red;
+			}  
+			.div{
+				width: 200px;
+				height: 200px;
+				background: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1"></div>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		//局部方法    load  $.fn.load 没有错误处理机制
+		//一般请求不用于数据请求
+//		$(".box1").load("http://localhost:8080/shop",{
+//			goodsName:"西瓜",
+//			goodsPrice:"2",
+//			goodsCount:"20",
+//			goodsType:"1",
+//			goodsTime:new Date().getTime()
+//		},function(res){
+//			console.log(res);
+//		})
+		//区分get&post请求    get发送数据在路径    post在参数中
+		//异步加载代码块
+//		$(".box1").load("demo.html",function(res,status,xhr){
+			
+//		})
+		//全局方法
+		// $.getJSON()  
+//		$.getJSON(url,callbackFn)
+//		$.getJSON("1.json",function(res){
+//			console.log(res)  //	=>  格式转换后的数据
+//		})
+
+		// $.getScript(url,callbackFn);  //异步加载脚本
+		
+		// $.get(url,data,callback)  $.post(url,data,callback);
+//		$.post("xxxx",{ss:"ss",ass:'ss'},function(res,status,xhr){
+//			
+//		})
+		
+//		$.ajax({
+//			url:"xxx",
+////			type:请求方式,//默认get
+//			data:{},
+//			success(){},
+//			error(){},
+//		})
+	</script>
+</html>

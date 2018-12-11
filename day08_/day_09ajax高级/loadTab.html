@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<button>新闻</button>
+			<button>娱乐</button>
+			<button>体育</button>
+		</div>
+		<div id="view"></div>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let pageArr = ["html/news.html","html/happy.html","html/sport.html"];
+		$("button").click(function(){
+			$("#view").load(pageArr[$(this).index()])
+		})
+	</script>
+</html>

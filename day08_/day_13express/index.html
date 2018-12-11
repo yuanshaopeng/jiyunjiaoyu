@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		姓名：<input type="text" /><br />
+		性别：男<input type="radio" value="男" name="sex" /> 女<input value="女" type="radio" name="sex" /><br />
+		职位：<select name="" id="">
+			<option value="1">干事</option>
+			<option value="2">组长</option>
+			<option value="3">经理</option>
+		</select><br />
+		<button>提交</button>
+		<table border="1" cellspacing="0" cellpadding="15">
+			<thead><tr><th>序号</th><th>姓名</th><th>性别</th><th>职位</th><th>操作</th></tr></thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</body>
+	<script src="jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("button").click(function(){
+			let obj = {
+				name:$("input").eq(0).val(),
+				sex:$("input").eq(1).prop("checked")?"男":"女",
+				workName:$("select").val()
+			}
+			let xhr = new XMLHttpRequest();
+			xhr.open("post","http://localhost:8080/add",true);
+			xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			xhr.send("name="+obj.name+"&sex="+obj.sex+"&workName="+obj.workName);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						getMsg()
+					}
+				}
+			}
+		})
+		getMsg()
+		function getMsg(){
+			let xhr = new XMLHttpRequest();
+			xhr.open("get","http://localhost:8080/msg",true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						let arr = JSON.parse(xhr.responseText);
+						let str = ``;
+						for(var i = 0 ; i < arr.length ; i++){
+							str+=`<tr>
+								<td>${i+1}</td>
+								<td>${arr[i].name}</td>
+								<td>${arr[i].sex}</td>
+								<td>${arr[i].workName}</td>
+								<td><a href="#" onclick="del(${arr[i].id})">删除</a></td>
+							</tr>`
+						}
+						$("tbody").html(str);
+					}
+				}
+			}
+		}
+		
+		function del(id){
+			let xhr = new XMLHttpRequest();
+			xhr.open("get","http://localhost:8080/del?id="+id,true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						getMsg();
+					}
+				}
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="box">
+			
+		</div>
+	</body>
+	<script type="text/html" id="tp1">
+		
+		<p><%=name%></p>
+		<ul>
+			<%for(var i = 0 ; i < arr.length ; i++){%>
+				<!--<img src="<%=xxx%>" alt="" />
+				<span><%=sxxx%></span>-->
+				<li onclick="fn(<%=arr[i]%>)"><%=arr[i]%></li>
+			<%}%>
+		</ul>
+	</script>
+	<script src="js/baiduTemplate.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//百度模板是一种dom结构模板
+		/*
+		 * 动态更改dom结构
+		 * 支持js语法
+		 * 支持for以及控制流语句
+		 * 支持js运算符
+		 */
+		
+		let obj1 = {
+			name:"lee",
+			arr:[1,2,3,4,5]
+		}
+		let obj2 = {
+			name:"lee",
+			arr:[1,2,3,4,5]
+		}
+		let obj3 = {
+			name:"lee",
+			arr:[1,2,3,4,5],
+			obj4:{
+				name:"欧宝4",
+				arr:[1,2,3]
+			}
+		}
+		var arr = [1,2,3,4];
+//		console.log(baidu.template("tp1",obj3))
+		document.querySelector(".box").innerHTML = baidu.template("tp1",{arr});
+		function fn(i){
+			alert(i)
+		}
+//		let str = "";
+//		for(var i = 0 ; i< xx.length ; i++){
+////			``
+//			str += "img"
+//				
+//				
+//			
+//			
+//		}
+	</script>
+</html>

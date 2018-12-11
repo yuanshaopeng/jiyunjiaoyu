@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$.ajax({
+			type:"get",
+			url:"https://api.asilu.com/weather/",
+			data:{city:"北京"},
+			dataType:"jsonp",//jquery中的jsonp跨域
+			success(res){
+				console.log(res)
+			}
+		});
+	</script>
+</html>

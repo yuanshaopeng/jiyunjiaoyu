@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<input type="text" />
+		<textarea name="" rows="" cols=""></textarea>
+		<button>提交</button>
+		<button>确认修改</button>
+		<ul>
+			<li>
+				<h3></h3>
+				<p></p>
+				<p></p>
+			</li>
+		</ul>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("button").click(function(){
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST","http://localhost:8080/bbs",true);
+			xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			let title = $("input").val();
+			let content = $("textarea").val();
+			let date = new Date().getTime();
+			xhr.send("title="+title+"&content="+content+"&time="+date)
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						console.log(xhr.responseText)
+						getMsg()
+					}
+				}
+			}
+		})
+		function getMsg(){
+			let xhr = new XMLHttpRequest();
+			xhr.open("GET","http://169.254.54.214:8080/bbs",true);
+			xhr.send()
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						let data = JSON.parse(xhr.responseText);
+						let str = "";
+						for (var i = 0 ; i < data.length ; i++) {
+							str+=`
+							<li>
+								<h3>${data[i].title}</h3>
+								<p>${data[i].content}</p>
+								<p>${data[i].time}</p>
+								<p _id="${data[i].id}" class="update">修改</p>
+								<p _id="${data[i].id}" class="delOne">删除</p>	
+							</li>`
+						}
+						$("ul").html(str);
+					}
+				}
+			}
+		}
+		getMsg()
+		let updateID = null;
+		$("ul").on("click",".update",function(){
+			updateID = $(this).attr("_id");
+			let xhr = new XMLHttpRequest();
+			xhr.open("GET","http://localhost:8080/bbs/"+$(this).attr("_id"),true);
+			xhr.send()
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						let data = JSON.parse(xhr.responseText);
+						$("input").val(data.title);
+						$("textarea").val(data.content);
+					}
+				}
+			}
+		})
+
+		$("ul").on("click",".delOne",function(){
+			let id = $(this).attr("_id");
+			let xhr = new XMLHttpRequest();
+			xhr.open("GET","http://localhost:8080/bbs/"+id,true);
+			xhr.send()
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						let data1 = JSON.parse(xhr.responseText);
+						xhr.open("delete","http://localhost:8080/bbs/"+id,true);
+						xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+						xhr.send("title="+data1.title+"&content="+data1.content+"&time="+data1.time);
+						xhr.onreadystatechange = function(){
+							if(xhr.readyState == 4){
+								if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+									getMsg();
+								}
+							}
+						}
+					}
+				}
+			}
+		})
+
+		$("button").eq(1).click(function(){
+			let xhr = new XMLHttpRequest();
+			xhr.open("PUT","http://localhost:8080/bbs/"+updateID,true);
+			xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			let title = $("input").val();
+			let content = $("textarea").val();
+			let date = new Date().getTime();
+			xhr.send("title="+title+"&content="+content+"&time="+date)
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status>=200&&xhr.status<300||xhr.status == 304){
+						getMsg()
+					}
+				}
+			}
+		})
+		/*
+		 * 页面数据要和数据库保持同步
+		 * 
+		 * 提交留言业务逻辑
+		 * 用户点击提交按钮 => 前台页面中输入框的值抓取  => 使用ajax进行数据提交  => 使用ajax进行数据获取  => 获取成功后回显页面
+		 * 
+		 * 修改留言业务逻辑
+		 * 用户点击修改按钮 => 调用获取一条数据接口，获取要修改的数据  => 回显到输入框  => 确认修改 => 调取修改数据接口
+		 * => 调取获取所有数据接口；
+		 * 
+		 * 删除留言业务逻辑
+		 * 用户点击删除按钮 => 调用获取一条数据接口，获取要删除的数据  => 调取删除接口，将获取的数据发送给后台删除数据 => 调取获取所有数据接口；
+		 */
+	</script>
+</html>

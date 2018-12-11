@@ -1,0 +1,25 @@
+<style type="text/css">
+	#box {
+		background: red;
+	}
+</style>
+<div id="box">
+	<%for(var i = 0 ; i < arr.length ; i++){%>
+		<h2><a href="http://localhost:6500/item/<%=arr[i].id%>"><%=arr[i].shopName%></a></h2>
+	<%}%>
+</div>
+<script type="text/javascript">
+//	ajax.get("/cs").then(res=>{
+//		console.log(res);
+//	})
+//	let xhr = new XMLHttpRequest();
+//	xhr.open("get","http://localhost:8080/cs",true);
+//	xhr.send();
+//	xhr.onreadystatechange = function(){
+//		if(xhr.readyState == 4){
+//			if(xhr.status >=200&&xhr.status<300 || xhr.status == 304){
+//				console.log(xhr.responseText)
+//			}
+//		}
+//	}
+</script>

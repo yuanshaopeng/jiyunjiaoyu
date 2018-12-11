@@ -1,0 +1,25 @@
+[{
+	"id":"1",
+	"shopName":"xx杂货店",
+	"goods":[
+		{
+			"id":"1_1",
+			"goodsName":"豌豆脆"
+		},{
+			"id":"1_2",
+			"goodsName":"呀！土豆"
+		}
+	]
+},{
+	"id":"2",
+	"shopName":"xx五金店",
+	"goods":[
+		{
+			"id":"2_1",
+			"goodsName":"钳子"
+		},{
+			"id":"2_2",
+			"goodsName":"扳手"
+		}
+	]
+}]

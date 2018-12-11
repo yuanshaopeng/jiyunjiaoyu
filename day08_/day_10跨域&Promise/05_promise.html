@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="ajax_v2.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/* es6中的对象
+		 * promise对象   异步处理对象
+		 * promise对象状态一旦设置无法修改
+		 * promise对象中的回调函数是立即执行函数
+		 * 兼容ie11+;
+		 */
+		
+//		let p1 = new Promise((resolve,reject)=>{
+//			//初始化状态；
+////			resolve("数据");//将promise状态由进行中(pending)状态凝固为成功状态
+////			reject("错误信息");//将promise状态由进行中状态凝固为失败状态
+//			setTimeout(()=>{
+//				reject("404");
+//			},1000)
+//		})
+//		console.log(p1)
+//		//Promise.prototype.then();//接收成功状态的返回值
+//		p1.then((res)=>{
+//			console.log(res);
+//		})
+//		then(fn1,fn2);//fn1为成功处理，fn2为失败处理
+//		
+//		//Promise.prototype.catch();//接收失败状态的返回值
+//		p1.catch((err)=>{
+//			console.log(err);
+//		})
+//		
+//		//Promise.prototype.finally();//无论成功与否都会触发
+//		p1.finally(()=>{
+//			alert(1)
+//		})
+//		以上的then catch  finally返回promise对象，可以连缀调用
+		function getmsg(res){
+			console.log(res);
+		}
+		function geterr(err){
+			console.log(err);
+		}
+		
+		ajax_v2({
+			method:"get",
+			url:"http://localhost:8080/bbbs"
+		})
+		.then(getmsg,geterr)
+		
+		
+//		console.log(1);
+//		let p2 = new Promise((resolve,reject)=>{
+//			//立即执行函数
+//			console.log(2)
+//			setTimeout(()=>{
+//				console.log(3);
+//				resolve("ok")
+//			},0)
+//		})
+//		console.log(5);
+//		p2.then(res=>{
+//			console.log(res);
+//			console.log(4);
+//		})
+//		1,2,5,3,4
+	</script>
+</html>

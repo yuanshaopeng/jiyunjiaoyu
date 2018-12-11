@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		儿子身高?厘米 ＝(父亲身高＋母亲身高 ×1.08)÷2
+		<hr />
+　　		女儿身高?厘米 ＝(父亲身高×0.923＋母亲身高) ÷2
+
+		1、并发请求双亲身高,孩子性别
+		2、继发获取孩子身高状况
+	</body>
+	<script type="text/javascript">
+		function p(bol,value,time){
+			time = time || 1000;
+			return new Promise((resolve,reject)=>{
+				setTimeout(()=>{
+					if(bol){
+						resolve(value)
+					}else{
+						reject("错误")
+					}
+				},time)
+			})
+		}
+		//
+		function step2(res){
+			if(res[2]=="男"){
+				return p(true,(res[0]+res[1]*1.08)/2,1000)
+			}else{
+				return p(true,(res[0]*0.923+res[1])/2,1000);
+			}
+		}
+		Promise.all([
+			p(true,169,1000),
+			p(true,160,1000),
+			p(true,"男",1000)
+		]).then(step2)
+		.then(res=>{
+			console.log(res);
+		})
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		p(true,"结果")
+//		.then(res=>{
+//			return p(true,res+"1",1000)
+//		})
+//		.then(res=>{
+//			console.log(res);
+//		})
+//		
+//		//第一步  通过请求 返回一个数字
+//		//第二步  通过请求  将第一步的结果进行加1 返回加1后的值
+//		//第三部   通过请求  把加1后的值进行判定   如果为奇数 则成功  反之则失败
+//		function rand(max,min){
+//			return parseInt(Math.random()*(max-min)+min+1);
+//		}
+//		function step2(res){
+//			console.log(res);
+//			return p(true,res+1,200);
+//		}
+//		function step3(res){
+//			if(res%2==0){
+//				return p(false,"偶数",200)
+//			}else{
+//				return p(true,"奇数",200)
+//			}
+//		}
+//		p(true,rand(99,0),200)
+//		.then(step2)
+//		.then(step3)
+//		.then(res=>{
+//			console.log(res)
+//		})
+//		.catch(err=>{
+//			console.log(err);
+//		})
+	</script>
+</html>

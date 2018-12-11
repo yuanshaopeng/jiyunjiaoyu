@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入用户名或手机号" /><br />
+		<input type="text" placeholder="请输入密码" /><br />
+		<button>登陆</button>
+	</body>
+	<script src="../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		const header = {
+			"content-type":"application/x-www-form-urlenconded",
+			"Authorization":localStorage.getItem("tokenID")
+		}
+		$("button").click(function(){
+			if($("input").eq(0).val() && $("input").eq(1).val()){
+				let telReg = /^1[3456789]\d{9}$/;
+				let obj = {};
+				//判断手机号||用户名登陆方式
+				if(telReg.test($("input").eq(0).val())){
+					obj.tel = $("input").eq(0).val()
+				}else{
+					obj.username = $("input").eq(0).val()
+				}
+				obj.password = $("input").eq(1).val();
+				ajax.post("/user/login",obj)
+				.then(res=>{
+					res = JSON.parse(res);
+					localStorage.userID = res.data.id;
+					localStorage.username = res.data.username;
+					localStorage.tokenID = res.data.tokenID;
+				})
+				.catch(err=>{
+					alert("账户与密码不匹配")
+				})
+			}else{
+				alert("输入框不能为空")
+			}
+		})
+	</script>
+</html>

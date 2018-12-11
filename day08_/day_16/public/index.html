@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<a href="./html/car.html">购物车</a>
+		<ul>
+			
+		</ul>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		ajax.post("/login").then(res=>{
+			res = JSON.parse(res);
+			localStorage.userID = res.userID;
+			localStorage.username = res.username;
+			localStorage.tokenID = res.tokenID;
+		})
+		ajax.get("/goods").then(res=>{
+			res = JSON.parse(res);
+			let arr = res.data;
+			let str = "";
+			for(var i = 0 ; i < arr.length ; i++){
+				str+=`
+					<li>
+						<h3>商品:${arr[i].goods_name}</h3>
+						<p>单价:💴${arr[i].goods_price}</p>
+						<p>库存:${arr[i].count}</p>
+						<button class='cut'>-</button><span>0</span><button class='add' maxCount="${arr[i].count}">+</button>
+						<button class='joinIn' _id="${arr[i]._id}">加入购物车</button>
+					</li>
+				`
+			}
+			$("ul").html(str);
+		})
+		$("ul").on("click",".cut",function(){
+			let num = $(this).next().html()*1;
+			if(num<=0){
+				return ;
+			}else{
+				num--;
+				 $(this).next().html(num)
+			}
+		})
+		$("ul").on("click",".add",function(){
+			let max = $(this).attr("maxCount")*1;
+			let num = $(this).prev().html()*1;
+			if(num>=max){
+				return 
+			}else{
+				num++;
+				 $(this).prev().html(num)
+			}
+		})
+		
+		$("ul").on("click",".joinIn",function(){
+			if(localStorage.username&&localStorage.tokenID&&localStorage.userID){
+				ajax.post("/add",{
+					userID:localStorage.userID,
+					tokenID:localStorage.tokenID,
+					goodsID:$(this).attr("_id"),
+					num:$(this).siblings("span").html()
+				}).then(res=>{
+					console.log(res);
+				})
+			}else{
+				alert("请先登陆")
+			}
+		})
+	</script>
+</html>

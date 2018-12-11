@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<button>提交</button>
+	</body>
+	<script src="socket.io.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let socket = io.connect();//获取连接对象;
+		socket.on("chat",function(data){
+			console.log(data);
+		})
+		socket.on("send",function(data){
+			console.log(data);
+		})
+		let btn = document.querySelector("button");
+		btn.onclick = function(){
+			socket.emit("toserver","这是 前端发送的")
+		}
+	</script>
+</html>

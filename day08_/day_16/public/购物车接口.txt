@@ -1,0 +1,24 @@
+获取购物车接口
+/car
+method:get,
+发送数据：{
+	userID,
+	tokenID,
+}
+响应数据:{
+	status:"1",
+	statusText:"ok",
+	data:{
+		//购物车商品信息
+		list:[{
+			_id:
+			goodsname:,
+			goodsprice:
+			goodsID:
+			goodsnum:
+		}],
+		sum:价格
+		zk:折扣，
+		zkzum:折扣后的价格
+	}
+}

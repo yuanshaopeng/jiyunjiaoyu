@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" /><br />
+		<textarea name="" rows="" cols=""></textarea>
+		<button>提交</button>
+		<button onclick="update()">确认</button>
+		<ul></ul>
+	</body>
+	<script src="../public/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		const baseURL = "http://localhost:8080";
+		let btn = document.querySelectorAll("button")[0];
+		let mkSure = document.querySelectorAll("button")[1];
+		let ipt = document.querySelector("input");
+		let txt = document.querySelector("textarea");
+		function getMsg(){
+			ajax.get(baseURL+"/bbs")
+			.then(res=>{
+				res = JSON.parse(res)
+				console.log(res);
+				if(res.status=="1"){
+					let arr = JSON.parse(res.data);
+					let str = ``;
+					for(let i = 0 ; i < arr.length ; i++){
+						str+=`
+							<li>
+								<h3>${arr[i].title}</h3>
+								<p>${arr[i].content}</p>
+								<p>${getDate(arr[i].time)}</p>
+								<p><a href="#" onclick="delFn(${arr[i].id})" class="del" >删除</a>
+								<a href="#" onclick="showToipt(${arr[i].id})" class="resets">修改</a></p>
+							</li>
+						`
+					}
+					document.querySelector("ul").innerHTML = str;
+				}else{
+					alert(res.statusText);
+				}
+			})
+		}
+		btn.onclick = function(){
+			ajax.post(baseURL+"/bbs",{
+				title:ipt.value,
+				content:txt.value
+			}).then(res=>{
+				console.log(res);
+				getMsg()
+			})
+		}
+		getMsg()
+		function delFn(id){
+			ajax.post(baseURL+"/delonebbs",{id})
+			.then(res=>{
+				res = JSON.parse(res);
+				if(res.status == 1){
+					getMsg()
+				}else{
+					alert(res.statusText);
+				}
+			})
+		}
+		let _id = null;
+		function showToipt(id){
+			ajax.get(baseURL+"/onebbs",{id})
+			.then(res=>{
+				res = JSON.parse(res);
+				console.log(res);
+				if(res.status == 1){
+					ipt.value = res.data.title;
+					txt.value = res.data.content;
+					_id = res.data.id;
+				}else{
+					alert(res.statusText);
+				}
+				console.log(id);
+			})
+		}
+		
+		function update(){
+			ajax.post(baseURL+"/update",{
+				id:_id,
+				title:ipt.value,
+				content:txt.value
+			})
+			.then(res=>{
+				res = JSON.parse(res);
+				console.log(res);
+				if(res.status == 1){
+					getMsg();
+				}else{
+					alert(res.statusText);
+				}
+			})
+		}
+	</script>
+</html>

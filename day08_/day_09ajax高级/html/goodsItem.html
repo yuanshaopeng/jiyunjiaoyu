@@ -1,0 +1,78 @@
+<div id="backList">返回商品列表</div>
+<div id="opt">
+	
+</div>
+<script type="text/html" id="tp3">
+	
+	<h2>商品名称 : <%=goodsName%></h2>
+	<p>商品价格 : <%=goodsPrice%></p>
+	<p>商品分类: <%=changeType(goodsType)%></p>
+	<p>商品库存: <%=goodsCount%></p>
+	<p>上架时间: <%=getDate(goodsTime)%></p>	
+	<button _id="<%=id%>" class="addCar">加入购物车</button>
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		let id = sessionStorage.goodsId;
+		$.get("http://localhost:8080/shop/"+id,function(res){
+			console.log(res);
+			$("#opt").html(baidu.template("tp3",res))
+		})
+		
+		$("#opt").on("click",".addCar",function(){
+			let that = this;
+			/*
+			 * 1、验证用户的登陆状态
+			 */
+			if(cookie.getCookie("userMsg")){
+				//登陆成功
+//				[
+//					{
+//						goodsID:,
+//						goodsNum:,
+//					}
+//				]
+				//2、获取用户的购物车记录；
+//				console.log(cookie.getCookie("userMsg"))
+				let userID = JSON.parse(cookie.getCookie("userMsg")).id;
+				$.get("http://localhost:8080/users/"+userID,function(res){
+					let goodsCar = JSON.parse(res.goodsCar);
+					//判断是否重复购买；
+					let goodsID = $(that).attr("_id");
+					let bol = false;//默认购买的东西不存在
+					let index = null;
+					for(let i = 0 ; i < goodsCar.length ; i++){
+						if(goodsCar[i].goodsID == goodsID){
+							bol = true;//本次购买已存在
+							index = i;
+						}
+					}
+					if(bol){
+						goodsCar[index].goodsNum = goodsCar[index].goodsNum*1+1;
+					}else{
+						goodsCar.push({
+							goodsID,
+							goodsNum:1
+						})
+					}
+					$.ajax({
+						url:"http://localhost:8080/users/"+userID,
+						type:"put",
+						data:{
+							goodsCar:JSON.stringify(goodsCar)
+						},
+						success(res){
+							console.log(res);
+						}
+					})
+					
+				})
+				
+			}else{
+				//登陆失败
+				$("#wrapView").load("html/login.html")
+			}
+			
+		})
+	})
+</script>

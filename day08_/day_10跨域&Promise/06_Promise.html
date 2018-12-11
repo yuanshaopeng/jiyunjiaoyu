@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function p(bol,value,time){
+			time = time || 1000;
+			return new Promise((resolve,reject)=>{
+				setTimeout(()=>{
+					if(bol){
+						resolve(value)
+					}else{
+						reject("错误")
+					}
+				},time)
+			})
+		}
+		
+		//Promise.all();//处理并发请求   如果任意请求发生错误，则返回的promise对象就为错误状态
+		let arr = [p(true,"值1"),p(true,"值2",2000),p(true,"值3",1500),p(true,"值4",1200),p(true,"值5",800)];
+		Promise.all(arr)  //处理时间为多次请求中最长的一次的请求时间
+		.then(res=>{
+			console.log(res);
+		})
+		.catch(err=>{
+			console.log(err);
+		})
+//		//并发请求eg1
+//		let url1 = "http://localhost:8080/a1";
+//		let url2 = "http://localhost:8080/a2";
+//		let url3 = "http://localhost:8080/a3";
+//		let url4 = "http://localhost:8080/a4";
+//		let url5 = "http://localhost:8080/a5";
+//		let arr2 = [url1,url2,url3,url4,url5];
+//		let idArr = ["1","2","3","4"];
+//		let arr3 = idArr.map((item,index)=>{
+//			return ajax_v2({
+//				url:"请求产品路径",
+//				data:{
+//					typeID:item
+//				}
+//			})
+//		})
+//		Promise.all(arr3)
+
+
+		//Promise.race();
+		Promise.race(arr) //请求时间为最短的请求时间   返回一个值
+		.then(res=>{
+			console.log(res);
+		})
+		
+		//Promise.resolve()  Promise.reject()   强制转换
+//		Promise.resolve(10).then(res=>{
+//			
+//		})
+	</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<button onclick="fn()">点击发送</button>
+	</body>
+	<script type="text/javascript">
+//		WebSocket;//与websocket服务连接对象;
+//		websocket服务地址:'ws://localhost:8080'
+		let ws = new WebSocket("ws://169.254.64.214:8080");
+		//提供四个事件,监听后台
+//		open,close,message,error;
+//		open:打开连接
+//		close:关闭连接
+//		message:在后台进行数据发送时前台接收发送的数据
+//		error:链接错误
+		
+		//监听打开连接时
+		ws.onopen = function(){
+			console.log(1111);
+			ws.send(JSON.stringify({name:"lee",age:18}))
+		}
+		//监听关闭连接时
+		ws.onclose = function(){
+			
+		}
+		//监听数据回传时
+		ws.onmessage = function(res){
+			console.log("圣旨到")
+			console.log(res.data);//响应数据
+		}
+		//监听连接错误时
+		ws.onerror = function(){
+			
+		}
+		function fn(){
+			ws.send("我又来了")
+		}
+//		ws.send("json数据");//向服务器发送数据
+	</script>
+</html>

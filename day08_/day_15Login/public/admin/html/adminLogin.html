@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="adminName" /><br />
+		<input type="text" id="adminPass" /><br />
+		<button>登陆</button>
+	</body>
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("button").click(function(){
+			ajax.post("/admin/login",{
+				adminname:$("#adminName").val(),
+				adminpass:$("#adminPass").val()
+			}).then(res=>{
+				res = JSON.parse(res);
+				if(res.status == 1){
+					localStorage.adminID = res.data.adminID;
+					localStorage.adminname = res.data.adminname;
+					localStorage.admin_tokenID = res.data.admin_tokenID;
+				}
+			})
+		})
+	</script>
+</html>

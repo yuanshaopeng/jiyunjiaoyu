@@ -1,0 +1,45 @@
+{
+	"type": "Collection",
+	"properties": {
+		"goodsName": {
+			"name": "goodsName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "goodsName",
+			"order": 0
+		},
+		"goodsPrice": {
+			"name": "goodsPrice",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "goodsPrice",
+			"order": 1
+		},
+		"goodsCount": {
+			"name": "goodsCount",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "goodsCount",
+			"order": 2
+		},
+		"goodsType": {
+			"name": "goodsType",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "goodsType",
+			"order": 3
+		},
+		"goodsTime": {
+			"name": "goodsTime",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "goodsTime",
+			"order": 4
+		}
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"type": "UserCollection",
+	"properties": {
+		"goodsCar": {
+			"name": "goodsCar",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "goodsCar",
+			"order": 0
+		}
+	}
+}

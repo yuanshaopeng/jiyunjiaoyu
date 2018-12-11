@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function Foo (){
+			alert(1);
+			fn = function(){
+				alert(2)
+			}
+			return this;
+		}
+		
+		var fn = function(){
+			alert(3)
+		}
+		function fn(){
+			alert(4)
+		}
+		Foo.prototype.fn = function(){
+			alert(5)
+		}
+		Foo.fn = function(){
+			alert(6)
+		}
+		fn();//3
+		let foo = new Foo();//1
+		fn();//2
+		let f2 = Foo();//1
+		foo.fn();//5
+		f2.fn();//2
+		Foo.fn();//6
+	</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<img src="http://pic.58pic.com/58pic/15/69/49/60p58PICtXG_1024.jpg"/>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/*
+		 * 同源
+		 *   协议 && 端口 && 域名||ip  相同  则为同源
+		 * 
+		 * 同源策略     限制XMLHttpRequest对象的访问；
+		 * 	 js中的对象只能访问同源资源   如果访问不同源资源那么这就是跨域
+		 */
+//		$.get("http://api.avatardata.cn/TouTiao/Query?key=7853d75e8e8841aea6d16237127fc60a&type=top",function(res){
+//			console.log(res);
+//		})
+		
+		//http://127.0.0.1:8020    
+		
+		//http://api.avatardata.cn:80  Access-Control-Allow-Origin
+		
+		//跨域处理的方案
+		/*		json+padding   fn(json数据)
+		 * 1 、jsonp   是有前端绕过同源策略进行跨域访问；
+		 *       弊端：仅支持get请求   并且对后台有要求   必须函数调用语句
+		 * 		原理 ： 利用了src可以跨源加载资源的特点，将script标签的src替换为请求路径，返回函数调用语法，通过js语法解析；
+		 * 
+		 * 2、 cors    是由后台允许跨域访问；
+		 * 
+		 * 3 、反向代理服务       由服务器访问另一个服务器
+		 */
+		
+		//发现   src属性可以跨源加载资源
+		function fn(msg){
+			console.log(msg);
+		}
+		
+	</script>
+	<script src="https://api.asilu.com/weather/?city=北京&callback=fn" type="text/javascript" charset="utf-8"></script>
+	<!--<script type="text/javascript">
+		alert(1);
+	</script>-->
+</html>

@@ -1,0 +1,56 @@
+<input id="user" type="text" placeholder="请输入用户名" /><br />
+<input id="pass" type="text" placeholder="请输入密码"/><br />
+<button id="login">登陆</button>
+<button id="createUser">注册</button>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#createUser").click(function(){
+			$.post("http://localhost:8080/users",{
+				username:$("#user").val(),
+				password:$("#pass").val(),
+				goodsCar:"[]"
+			},function(res){
+				console.log(res);
+				$.post("http://localhost:8080/users/login",{
+					username:$("#user").val(),
+					password:$("#pass").val()
+				},function(user){
+					console.log(user);
+					$.get("http://localhost:8080/users/"+user.uid,function(msg){
+						console.log(msg)
+						let date = new Date();
+						date.setDate(date.getDate()+7);
+						let userMsg = {
+							id:msg.id,
+							username:msg.username,
+							token_id:user.id
+						}
+						document.cookie = "userMsg="+JSON.stringify(userMsg)+";expires="+date;
+						$("#wrapView").load("html/home.html");
+					})
+				})
+			})
+		})
+		
+		$("#login").click(function(){
+			$.post("http://localhost:8080/users/login",{
+					username:$("#user").val(),
+					password:$("#pass").val()
+				},function(user){
+					console.log(user);
+					$.get("http://localhost:8080/users/"+user.uid,function(msg){
+						console.log(msg)
+						let date = new Date();
+						date.setDate(date.getDate()+7);
+						let userMsg = {
+							id:msg.id,
+							username:msg.username,
+							token_id:user.id
+						}
+						document.cookie = "userMsg="+JSON.stringify(userMsg)+";expires="+date;
+						$("#wrapView").load("html/home.html");
+					})
+				})
+		})
+	})
+</script>

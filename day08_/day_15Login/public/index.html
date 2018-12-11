@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<header>
+			<a href="html/login.html">登陆</a><a href="html/zhuce.html">注册</a>
+		</header>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		const header = {
+			"content-type":"application/x-www-form-urlenconded",
+			"Authorization":localStorage.getItem("tokenID"),
+			"userId":localStorage.getItem("userID")
+		}		
+		ajax({
+			method:"post",
+			url:"/tk",
+			header,
+			data:{
+				id:localStorage.getItem("userID"),
+			}
+		})
+		.then(res=>{
+			console.log(res);
+		})
+	</script>
+</html>

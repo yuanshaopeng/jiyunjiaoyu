@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form id="form1">
+			<input type="text" name="name" placeholder="请输入姓名" />
+			<input type="text" name="pass" placeholder="请输入密码" />
+			<input type="file" name="file" placeholder="请选择头像" />
+			<input type="submit" id="upload" value="提交"/>
+		</form>
+		<img src="" alt="" />
+	</body>
+	<script src="../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("#upload").click(function(ev){
+			ev.preventDefault();
+			$.ajax({
+				url:"http://localhost:8080/upload",
+				type:'post',
+				data:new FormData($("#form1")[0]),
+				asycn:false,//同步请求
+				cache:false,//关闭浏览器缓存
+				contentType:false,//不限制文档类型
+				processData:false,//不限制文件内容
+				success(res){
+					console.log(res);
+					if(res.status == 1){
+						$("img").attr("src",res.files.url);
+					}else{
+						alert(res.code);
+					}
+				}
+			})
+		})
+	</script>
+</html>

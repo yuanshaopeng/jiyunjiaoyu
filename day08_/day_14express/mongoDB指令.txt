@@ -1,0 +1,25 @@
+show dbs  查看当前电脑中创建的所有的数据库
+use 数据库名称       创建或进入某个数据库
+db.createCollection("集合名称")   在某个数据库中创建集合
+db.集合名称.insert({数据对象})；  向集合中插入数据；
+db.集合名词.insertMany([{name:"name1"},{name:"name2"}])  插入多条数据
+db.集合名称.remove({检索条件},{justOne:true})   默认全部删除
+db.集合名称.deleteOne({检索条件})  删除一条
+db.集合名称.deleteMany({检索条件})  删除多条
+db.集合名称.find({检索条件})  查询
+db.集合名称.update({检索条件},{更改后的值},{upsert:若没有找到则是否要添加（默认false）,multi:是否更改所有数据(默认false)})
+db.集合名称.updateOne({检索条件},{$set:{跟新的属性}})  更改一条
+db.集合名称.updateMany({检索条件},{$set:{跟新的属性}})  更改多条
+
+
+mongodb数据库  是非关系型数据库
+数据的储存格式为json文档格式       
+mongodb内部自带服务器   mongo://localhost:27017;
+mysql 需要搭建一个本地服务环境    生成一个阿帕奇apache服务器
+mongodb通过id查询速度大于mysql，提供其他的检索方式，速度也很快
+mongodb并不需要数据库语句完成数据增删查改
+不需要分配人员定期维护；
+不支持多表联查
+大型项目应用较少
+高并发处理缓慢
+

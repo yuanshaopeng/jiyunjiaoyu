@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="loginPage">
+			<input type="text" /><br />
+			<input type="text" />
+			<button>登陆</button><button>注册</button>
+		</div>
+		<div id="talkPage" style="display: none;">
+			<textarea name="" rows="" cols=""></textarea><button id="add">提交</button>
+			<h1>在线总人数: <span id="sum"></span></h1>
+			<ul>
+				<li>
+					<span style="color: blue;font-weight: 900; font-size: 20px;">xxx:</span><span>xxxxx</span>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("button").eq(0).click(function(){
+			$.get("/login",{username:$("input").eq(0).val(),password:$("input").eq(1).val()},function(res){
+				if(res=="查无此人"){
+					alert("登陆失败")
+				}else{
+					alert("登陆成功")
+					$("#loginPage").hide();
+					$("#talkPage").show();
+					let ws = new WebSocket(res.wsUrl);
+					
+					ws.onmessage = function(res){
+						console.log(res);
+						let data = JSON.parse(res.data);
+						if(data.status == 1){
+							$("#sum").html(data.data)
+						}else{
+							let str = "";
+							for(var i = 0 ; i < data.length ; i++){
+								str+=`<li>
+									<span style="color: blue;font-weight: 900; font-size: 20px;">${data[i].username}</span><span>${data[i].content}</span>
+								</li>`
+							}
+							$("ul").html(str);
+						}
+					}
+					$("#add").click(function(){
+						ws.send(JSON.stringify({
+							username:res.userMsg.username,
+							content:$("textarea").val()
+						}))
+					})
+				}
+			})
+		})
+		$("button").eq(1).click(function(){
+			$.get("/zc",{username:$("input").eq(0).val(),password:$("input").eq(1).val()},function(res){
+				alert("注册成功,去登陆把")
+			})
+		})
+	</script>
+</html>

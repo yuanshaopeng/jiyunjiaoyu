@@ -1,0 +1,33 @@
+<ul id="list">
+	
+</ul>
+<script type="text/html" id="tp2">
+	
+	<%for(var i = 0 ; i < arr.length ; i++){%>
+		<li>
+			<h3><%=arr[i].goodsName%></h3>
+			<p>￥<%=arr[i].goodsPrice%></p>
+			<button class="inItem" _id="<%=arr[i].id%>" >查看详情</button>
+		</li>
+	<%}%>
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	
+		//加载商品详情页
+		$("#list").on("click",".inItem",function(){
+//			console.log($(this).attr("_id"))
+			sessionStorage.goodsId = $(this).attr("_id");
+			$("#shopView").load("html/goodsItem.html")
+		})
+		
+		function getMsg(){
+			$.get("http://localhost:8080/shop",function(res){
+				console.log(res);
+				$("#list").html(baidu.template("tp2",{arr:res}))
+			})
+		}
+		getMsg()
+	})
+</script>

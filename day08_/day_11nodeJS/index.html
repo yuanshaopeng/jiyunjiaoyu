@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" />
+		<textarea name="" rows="" cols=""></textarea>
+		<button onclick="add()">提交</button>
+	</body>
+	<script src="../public/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function getMsg(){
+			ajax.get("http://localhost:8080/bbs")
+			.then(res=>{
+				console.log(res)
+			})
+		}
+		getMsg();
+		function add(){
+			ajax.get("http://localhost:8080/addbbs",{
+				title:document.querySelector("input").value,
+				content:document.querySelector("textarea").value,
+				time:new Date().getTime()
+			})
+			.then((res)=>{
+				console.log(res)
+				getMsg()
+			})
+		}
+	</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		
+		/*
+		 * 箭头函数的语法
+		 * ()=>{}
+		 * 不传递参数时   括号必须有  ()=>{函数体};
+		 * 传递一个参数时      括号可以省略    参数=>{函数体};
+		 * 传递多个参数时     括号必须有   (参数1,参数2,xx)=>{函数体};
+		 * 
+		 * 当函数体只有一句代码时    花括号也可以省略；    并且会将代码运行结果作为return值返回
+		 * (c1,c2)=>c1+c2;    (c1,c2)=>{return c1+c2}
+		 * 
+		 * 箭头函数中没有this指针    this永远是外层的this;   常用于做回调函数
+		 * 箭头函数不能用于构造函数开发
+		 * 箭头函数中没有arguments对象   使用...扩展运算符代替arguments对象
+		 */
+		
+//		let fn = (a,b)=>a+b;
+		var name = "李";
+		let obj = {
+			name:"张",
+			fn(){
+				setTimeout(function(){
+					console.log("1111",this.name);
+				},1000)
+				setTimeout(()=>{
+					console.log("2222",this.name);
+				},1000)
+			}
+		}
+		
+		obj.fn()
+		
+		let fn = (...c)=>{
+			console.log(c);
+		}
+		fn(1,2,3,4,5,6,7,8,9)
+		
+	</script>
+</html>

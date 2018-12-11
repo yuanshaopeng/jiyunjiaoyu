@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		const url = "http://localhost:8081"
+//		http://localhost:8080/api
+		$.get(url+"/api",(res)=>{
+			console.log(res);
+		})
+		$.get(url+"/ZhouGongJieMeng/LookUp",{
+			key:"167df29e27e84828b5b7158e49875b4e",
+			keyword:"梦见加薪"
+		},(res)=>{
+			console.log(res);
+		})
+//		http://127.0.0.1:8020/1808A/day_16proxy/index.html
+//		反向代理服务   接口转发
+//		http://localhost:8081/api
+//		设置cros跨域
+//		http://localhost:8080/api
+
+
+
+		//jsonp   前后端都要有参与
+		
+		//cros    后台设定  前端无察觉
+		
+		//proxy   前端设置  后端无察觉
+	</script>
+</html>

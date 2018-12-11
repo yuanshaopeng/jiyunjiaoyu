@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" /><br />
+		<button>查询</button>
+		<!--
+			jsonp
+			跨域原理：利用src可以加载跨域资源的特点，动态创建script标签，设置其src属性，访问资源；
+			jsonp
+			缺点：
+				1、仅支持get请求接口
+				2、对后台要求返回函数调用语法
+				3、只能传输json数据
+			使用场景：常用于获取第三方开源数据时
+			语法要求：先定义函数,函数必须是全局函数   ，将函数名作为callback的参数值发送后台
+			
+		-->
+	</body>
+	<script src="jsonp封装.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let ipt = document.querySelector('input');
+		let btn = document.querySelector("button");
+//		function weather(msg){
+//			console.log(msg);
+//		}
+		btn.onclick = function(){
+			let city = ipt.value;
+//			let sc = document.createElement("script");
+//			sc.src = "https://api.asilu.com/weather/?city="+city+"&callback=weacher";
+//			document.body.appendChild(sc);
+//			sc.remove()
+			jsonP({
+				url:"https://api.asilu.com/weather/",
+				data:{
+					city:city,
+				},
+				success(res){
+					console.log(res);
+				}
+				
+			})
+		}
+	</script>
+</html>

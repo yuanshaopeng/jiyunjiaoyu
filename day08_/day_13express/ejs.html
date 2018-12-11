@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+	</body>
+	<script type="text/html" id="tp1">
+		<p><%=name%></p>
+	</script>
+	<script src="ejs.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let tp1 = document.querySelector("#tp1");
+		box.innerHTML = ejs.render(tp1.innerHTML,{name:"zhang"})
+	</script>
+</html>

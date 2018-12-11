@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			.delAll{
+				position: fixed;
+				left: -40px;
+				top:400px;
+				width: 40px;
+				height: 200px;
+				font-size: 25px;
+				text-align: center;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<h2>
+			后台管理系统
+		</h2>
+		<div class="box">
+			<input type="text" placeholder="请输入商品名称" /><br />
+			<input type="text" placeholder="请输入商品单价" /><br />
+			<input type="text" placeholder="请输入商品库存" /><br />
+			<!--<input type="text" placeholder="请输入图片路径" /><br />-->
+			<select>
+				<option value="1">水果</option>
+				<option value="2">玩具</option>
+				<option value="3">服装</option>
+				<option value="4">电子</option>
+			</select><br />
+			<button id="add">提交</button>
+			<button id="sure" style="display: none;">确认修改</button>
+		</div>
+		<button class="delAll" id="delAll" onclick="delMany()">删除选中项</button>
+		<table border="1" cellspacing="0" cellpadding="20">
+			<thead><tr>
+				<td><input type="checkbox" id="choose" /></td>
+				<td>商品名称</td>
+				<td>商品单价</td>
+				<td>商品库存</td>
+				<td>商品类别</td>
+				<td>添加日期</td>
+				<td>操作</td>
+			</tr></thead>
+			<tbody></tbody>
+		</table>
+	</body>
+	<script type="text/html" id="tp1">
+		
+		<%for(var i = 0 ; i < arr.length ; i++){%>
+			<tr>
+				<td><input _id="<%=arr[i].id%>" type="checkbox" /></td>
+				<!--<td><img src="<%=arr[i].goodsLogo%>" alt="" /></td>-->
+				<td><%=arr[i].goodsName%></td>
+				<td><%=arr[i].goodsPrice%></td>
+				<td><%=arr[i].goodsCount%></td>
+				<td><%=arr[i].goodsType%></td>
+				<td><%=arr[i].goodsTime%></td>
+				<td>
+					<a href="#" onclick="delOne('<%=arr[i].id%>')"> 删除 </a>	
+					<a href="#" onclick="getOne('<%=arr[i].id%>')"> 修改 </a>
+				</td>
+			</tr>
+		<%}%>
+	</script>
+	<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		const baseURL = "http://169.254.64.214:8080";
+		let updateID = null;
+		//提交商品    
+		$("#add").click(function(){
+			let obj = {
+				goodsName:$("input").eq(0).val(),
+				goodsPrice:$("input").eq(1).val(),
+				goodsCount:$("input").eq(2).val(),
+				goodsType:$("select").val(),
+				goodsTime:new Date().getTime(),
+//				goodsLogo:$("input").eq(3).val()
+			}
+			ajax({
+				url:baseURL+"/shop",
+				method:"post",
+				data:obj,
+				success(res){
+					console.log(res);
+					$("input").val("");
+					$("select").val("");
+					getAllMsg();
+				},
+				error(err){
+					console.log(err);
+				}
+			})
+		})
+		
+		//数据回显
+		function getAllMsg(){
+			ajax({
+				url:baseURL+"/shop",
+				method:"get",
+				success(res){
+					console.log(res);
+					let arr = JSON.parse(res);
+					//将数据进行前台格式处理
+					arr.forEach(function(item,index){
+						item.goodsType = changeType(item.goodsType);
+						item.goodsTime = getDate(item.goodsTime);
+					})
+					$("tbody").html(baidu.template("tp1",{arr}))
+				},
+				error(err){
+					console.log(err);
+				}
+			})
+		}
+		
+		//删除一条数据
+		function delOne(id){
+			ajax({ //获取要删除的数据
+				url:baseURL+"/shop/"+id,
+				method:"get",
+				success(res){ 
+					ajax({// 调取删除接口
+						url:baseURL+"/shop/"+id,
+						method:"delete",
+						data:JSON.parse(res),
+						success(){
+							//获取最新数据
+							getAllMsg()
+						}
+					})
+				}
+			})
+		}
+		
+		//全选/全不选
+		$("#choose").click(function(){
+			$("tbody [type='checkbox']").prop("checked",$(this).prop("checked"))
+			let chooseLen = $("tbody [type='checkbox']:checked").length;
+			if(chooseLen>=2){
+				$("#delAll").animate({left:0},200)
+			}else{
+				$("#delAll").animate({left:-40},200)
+			}
+		})
+		$("tbody").on("click","[type='checkbox']",function(){
+			let chooseLen = $("tbody [type='checkbox']:checked").length;
+			let allLen = $("tbody [type='checkbox']").length;
+			if(chooseLen<allLen){
+				$("#choose").prop("checked",false);
+			}else if(chooseLen==allLen){
+				$("#choose").prop("checked",true);
+			}
+			if(chooseLen>=2){
+				$("#delAll").animate({left:0},200)
+			}else{
+				$("#delAll").animate({left:-40},200)
+			}
+		})
+		
+		//删除多条数据
+		function delMany(){
+			//1、通过计数器进行并发请求处理  请求耗费的时间短
+//			let count = 0;
+//			let sum = $("tbody [type='checkbox']:checked").length;
+//			$("tbody [type='checkbox']:checked").each(function(index,item){
+//				let id = $(this).attr("_id")
+//				ajax({ //获取要删除的数据
+//					url:baseURL+"/shop/"+id,
+//					method:"get",
+//					success(res){ 
+//						ajax({// 调取删除接口
+//							url:baseURL+"/shop/"+id,
+//							method:"delete",
+//							data:JSON.parse(res),
+//							success(){
+//								count++;
+//								if(count==sum){
+//									$("#delAll").animate({left:-40},100)
+//									//获取最新数据
+//									getAllMsg()
+//								}
+//							}
+//						})
+//					}
+//				})
+//			})
+
+//			2、将请求有异步转为同步；
+			let idArr = [];
+			$("tbody [type='checkbox']:checked").each(function(index,item){
+				idArr.push($(this).attr("_id"));
+			})
+			d(idArr);
+		}
+		
+		function d(arr){
+			let id = arr.shift()
+			ajax({ //获取要删除的数据
+				url:baseURL+"/shop/"+id,
+				method:"get",
+				success(res){ 
+					ajax({// 调取删除接口
+						url:baseURL+"/shop/"+id,
+						method:"delete",
+						data:JSON.parse(res),
+						success(){
+							if(arr.length ==0){
+								getAllMsg()
+								$("#delAll").animate({left:-40},100)
+							}else{
+								d(arr)
+							}
+						}
+					})
+				}
+			})
+		}
+		
+		//获取一条数据回显输入框
+		function getOne(id){
+			updateID = id;
+			$("#add").hide();
+			$("#sure").show();
+			ajax({
+				url:baseURL+"/shop/"+id,
+				method:"get",
+				success(res){
+					console.log(res);
+					let data = JSON.parse(res);
+					$("input").eq(0).val(data.goodsName);
+					$("input").eq(1).val(data.goodsPrice);
+					$("input").eq(2).val(data.goodsCount);
+					$("select").val(data.goodsType);
+					
+				}
+			})
+		}
+		
+		//确认修改
+		$("#sure").click(function(){
+			$("#add").show();
+			$("#sure").hide();
+			ajax({
+				url:baseURL+"/shop/"+updateID,
+				method:"put",
+				data:{
+					goodsName:$("input").eq(0).val(),
+					goodsPrice:$("input").eq(1).val(),
+					goodsCount:$("input").eq(2).val(),
+					goodsType:$("select").val(),
+					goodsTime:new Date().getTime()
+				},
+				success(res){
+					console.log(res);
+					getAllMsg()
+					updateID = null;
+				}
+			})
+		})
+		
+		function changeType(num){
+			if(num==1){
+				return "水果"
+			}else if(num == 2){
+				return "玩具"
+			}else if(num == 3){
+				return "服装"
+			}else if(num == 4){
+				return "电子"
+			}
+		}
+		
+		function getDate(time){
+			time = time*1;//数字
+			let date = new Date(time);
+			let str = "年-月-日 时:分:秒";
+			return str.replace("年",date.getFullYear())
+			.replace("月",((date.getMonth()+1)<10?"0"+(date.getMonth()+1):date.getMonth()+1))
+			.replace("日",(date.getDate()<10?"0"+date.getDate():date.getDate()))
+			.replace("时",(date.getHours()<10?"0"+date.getHours():date.getHours()))
+			.replace("分",(date.getMinutes()<10?"0"+date.getMinutes():date.getMinutes()))
+			.replace("秒",(date.getSeconds()<10?"0"+date.getSeconds():date.getSeconds()))
+		}
+		
+		getAllMsg()
+		})
+	</script>
+</html>

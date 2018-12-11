@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="../public/ajax_v2.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		ajax({
+			url:"http://localhost:8080/bbs",
+			method:"post",
+			data:{
+				title:"xxxx",
+				content:"xxx",
+				time:new Date().getTime()
+			}
+		}).then(res=>{
+			console.log(res);
+		})
+		
+		ajax.get("http://localhost:8080/bbs")
+		.then(res=>{
+			console.log(res);
+		})
+		
+		ajax.post("http://localhost:8080/bbs",{
+			title:"xxxx",
+			content:"xxx",
+			time:new Date().getTime()
+		})
+		.then(res=>{
+			console.log(res);
+		})
+		
+		ajax.jsonp("https://api.asilu.com/phone/",{phone:"18511119752"})
+		.then(res=>{
+			console.log(res);
+		})
+	</script>
+</html>

@@ -1,0 +1,21 @@
+数据库名称：bBox;
+
+1、用户集合   userList
+_id:自带；
+username:用户名（不允许重复）
+password:密码（MD5加密）
+tel:手机号（不允许重复）
+
+
+2、管理员集合  adminList   
+_id:自带
+adminname:管理员名字  admin
+adminpass:管理员密码   123
+
+3、管理员日志集合  记录管理员的操作   adminLog
+_id:自带
+adminname:管理员名称
+adminID:管理员id
+content:操作内容,
+time:操作时间
+

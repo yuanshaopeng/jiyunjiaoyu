@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>car</title>
+	</head>
+	<body>
+		<button class="routerLink">进入后台管理系统</button>
+		<button class="routerLink">进入前台商城</button>
+		<button class="routerLink">登陆/注册</button>
+		<button class="routerLink">购物车</button>
+		<div id="wrapView"></div>
+	</body>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/baiduTemplate.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/cookie.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		if(cookie.getCookie("userMsg")){
+			$("#wrapView").load("html/home.html")
+		}else{
+			$("#wrapView").load("html/login.html")
+		}
+		
+		function changeType(num){
+			if(num==1){
+				return "水果"
+			}else if(num == 2){
+				return "玩具"
+			}else if(num == 3){
+				return "服装"
+			}else if(num == 4){
+				return "电子"
+			}
+		}
+		
+		function getDate(time){
+			time = time*1;//数字
+			let date = new Date(time);
+			let str = "年-月-日 时:分:秒";
+			return str.replace("年",date.getFullYear())
+			.replace("月",((date.getMonth()+1)<10?"0"+(date.getMonth()+1):date.getMonth()+1))
+			.replace("日",(date.getDate()<10?"0"+date.getDate():date.getDate()))
+			.replace("时",(date.getHours()<10?"0"+date.getHours():date.getHours()))
+			.replace("分",(date.getMinutes()<10?"0"+date.getMinutes():date.getMinutes()))
+			.replace("秒",(date.getSeconds()<10?"0"+date.getSeconds():date.getSeconds()))
+		}
+		let pageArr = ["html/admin.html","html/home.html","html/login.html","html/shopCar.html"];
+		
+		$(".routerLink").click(function(){
+			$("#wrapView").load(pageArr[$(this).index()])
+		})
+	</script>
+</html>

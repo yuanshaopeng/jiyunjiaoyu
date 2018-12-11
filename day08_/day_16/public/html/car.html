@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li>
+				<h3></h3>
+				<p></p>
+				<p></p>
+			</li>
+		</ul>
+	</body>
+	<script src="../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/ajax_v3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function getCar(){
+			ajax.get("/car",{
+				userID:localStorage.userID,
+				tokenID:localStorage.tokenID
+			})
+			.then(res=>{
+				res = JSON.parse(res);
+				console.log(res);
+				let list = res.data.list;
+				let str = '';
+				for(var i = 0 ; i < list.length ; i++){
+					str += `
+						<li>
+							<h3>${list[i].goods_name}</h3>
+							<p>${list[i].goods_price}</p>
+							<p>${list[i].goodsnum}</p>
+						</li>
+					`
+				}
+				$("ul").html(str)
+			})
+		}
+		getCar()
+		setInterval(function(){
+			getCar();
+		},5000)
+		
+		//在webSocket之前基本使用的轮询     要么在后台管理系统中应用,要么就是在用户群体小的项目中使用;
+		//优势:  对后台无要求;
+		//弊端:  1需要不间断向服务器发起请求,使得服务器请求过于频繁,增加服务器访问压力
+//				2数据并不是实时统一的
+		//解决方案:  
+		/* 减少传送数据量从而减少服务器请求压力;
+		 * 不间断的查看数据库中的数据是否该变,如果改变则返回最新数据,如果未改变则返回空
+		 */
+		//其他优化方案
+//			移动端:下拉刷新
+//			pc端:要么直接刷新    要么在结算之前刷新页面
+		
+		//预习websocket;
+	</script>
+</html>
